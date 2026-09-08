@@ -1,0 +1,331 @@
+/* ==============================
+  PAGINA PRINCIPAL INDEX
+   ============================== */
+:root{
+  --morado:#9f37c4;
+  --lila:#d97aff;
+  --negro:#12051b;
+  --blanco:#fff;
+  --gris:#f7f3fa;
+  --texto:#2b1738;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial, sans-serif;
+  background:var(--gris);
+  color:var(--texto);
+}
+header{
+  background:#12051b;
+  color:white;
+  padding:12px 7%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.mini-logo{width:65px;height:48px;object-fit:contain}
+nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+nav a{
+  color:white;text-decoration:none;font-weight:bold;
+}
+nav a:hover{color:var(--lila)}
+.btn{
+  display:inline-block;
+  background:var(--morado);
+  color:white;
+  padding:11px 20px;
+  border-radius:25px;
+  text-decoration:none;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+}
+.btn:hover{background:#a43df0}
+.hero{
+  min-height:75vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:50px 20px;
+  background:linear-gradient(135deg,#12051b,#2a0742,#8207DB);
+  color:white;
+}
+.hero img{width:min(430px,90%);border-radius:20px;margin-bottom:20px}
+.hero h1{font-size:clamp(2.2rem,6vw,4.5rem);margin-bottom:10px}
+.hero p{font-size:1.15rem;margin-bottom:25px}
+section{padding:65px 8%;text-align:center}
+section h2{font-size:2rem;margin-bottom:15px;color:var(--morado)}
+.sobre{background:white}
+.sobre p{max-width:750px;margin:auto;line-height:1.7}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:20px;
+  margin-top:30px;
+}
+.card{
+  background:white;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 5px 18px #00000012;
+}
+.card .icon{font-size:45px;margin-bottom:12px}
+.card h3{margin-bottom:8px;color:var(--morado)}
+.form-box{
+  max-width:450px;margin:60px auto;padding:30px;
+  background:white;border-radius:20px;
+  box-shadow:0 5px 20px #00000015;
+}
+.form-box h2{text-align:center;color:var(--morado);margin-bottom:20px}
+input{
+  width:100%;padding:13px;margin:8px 0 15px;
+  border:1px solid #ddd;border-radius:10px;
+}
+.form-box .btn{width:100%}
+.center{text-align:center}
+.profile{
+  max-width:600px;margin:60px auto;background:white;padding:35px;
+  border-radius:20px;text-align:center;box-shadow:0 5px 20px #00000015;
+}
+.avatar{
+  width:90px;height:90px;border-radius:50%;margin:0 auto 15px;
+  background:var(--lila);display:flex;align-items:center;justify-content:center;
+  font-size:40px;
+}
+footer{
+  background:#12051b;color:white;text-align:center;padding:25px;
+}
+@media(max-width:650px){
+  header{flex-direction:column;gap:10px}
+  nav{justify-content:center}
+}
+
+/* ==============================
+   LOGIN, REGISTRO Y PERFIL
+   ============================== */
+
+.encabezado-login {
+    background-color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.encabezado-login h1 {
+    color: #8207DB;
+    margin: 0;
+}
+
+.encabezado-login p {
+    color: #777;
+}
+
+
+/* Fondo */
+
+.login-container {
+    min-height: 80vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+
+    background: linear-gradient(
+        135deg,
+        #8207DB,
+        #C27AFF
+    );
+}
+
+
+/* Tarjeta */
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+
+    background-color: white;
+
+    padding: 35px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0, 0, 0, 0.2);
+}
+
+
+/* Título */
+
+.login-card h2 {
+    text-align: center;
+
+    color: #8207DB;
+
+    margin-bottom: 10px;
+}
+
+
+.texto-login {
+    text-align: center;
+
+    color: #777;
+
+    margin-bottom: 25px;
+}
+
+
+/* Etiquetas */
+
+.login-card label {
+    display: block;
+
+    margin-top: 15px;
+
+    margin-bottom: 6px;
+
+    font-weight: bold;
+
+    color: #333;
+}
+
+
+/* Campos */
+
+.login-card input {
+    width: 100%;
+
+    padding: 12px;
+
+    box-sizing: border-box;
+
+    border: 2px solid #ddd;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+}
+
+
+/* Cuando seleccionamos un campo */
+
+.login-card input:focus {
+    outline: none;
+
+    border-color: #8207DB;
+}
+
+
+/* Botón principal */
+
+.boton {
+    display: block;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px;
+
+    margin-top: 25px;
+
+    background-color: #8207DB;
+
+    color: white;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+
+.boton:hover {
+    background-color: #6b05b5;
+}
+
+
+/* Segundo botón */
+
+.boton-secundario {
+    display: block;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px;
+
+    margin-top: 15px;
+
+    border: 2px solid #8207DB;
+
+    border-radius: 10px;
+
+    color: #8207DB;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+
+/* Separador */
+
+.separador {
+    text-align: center;
+
+    margin-top: 25px;
+
+    color: #777;
+}
+
+
+/* Regresar */
+
+.volver {
+    display: block;
+
+    text-align: center;
+
+    margin-top: 20px;
+
+    color: #8207DB;
+
+    text-decoration: none;
+}
+
+
+/* Foto */
+
+.foto-perfil {
+
+    width: 100px;
+
+    height: 100px;
+
+    margin: 10px auto 20px;
+
+    border-radius: 50%;
+
+    background-color: #C27AFF;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 45px;
+}
