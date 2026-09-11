@@ -489,3 +489,238 @@ footer{
 
     margin-top: 15px;
 }
+
+/* ============================= */
+/* CATÁLOGO DE PRODUCTOS */
+/* ============================= */
+
+.catalogo {
+    background-color: #faf5ff;
+    padding: 60px 8%;
+    text-align: center;
+}
+
+/* TÍTULO */
+
+.catalogo h2 {
+    color: #8207DB;
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+/* DESCRIPCIÓN */
+
+.descripcion-catalogo {
+    color: #5c3b68;
+    font-size: 18px;
+    margin-bottom: 50px;
+}
+
+
+/* CATEGORÍAS */
+
+.catalogo h3 {
+    color: #8207DB;
+    font-size: 28px;
+    margin-top: 45px;
+    margin-bottom: 30px;
+}
+
+
+/* CONTENEDOR DE PRODUCTOS */
+
+.productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+
+/* TARJETA DEL PRODUCTO */
+
+.producto {
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+
+    box-shadow: 0 5px 15px rgba(130, 7, 219, 0.15);
+
+    transition: 0.3s;
+}
+
+
+/* EFECTO AL PASAR EL MOUSE */
+
+.producto:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 10px 25px rgba(130, 7, 219, 0.25);
+}
+
+
+/* ESPACIO PARA LA IMAGEN */
+
+.imagen-producto {
+    height: 180px;
+
+    background-color: #f1ddff;
+
+    border-radius: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 50px;
+
+    margin-bottom: 20px;
+}
+
+
+/* NOMBRE DEL PRODUCTO */
+
+.producto h4 {
+    color: #8207DB;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+
+/* DESCRIPCIÓN DEL PRODUCTO */
+
+.producto p {
+    color: #654b70;
+    line-height: 1.5;
+
+    min-height: 45px;
+}
+
+
+/* PRECIO */
+
+.precio {
+    display: block;
+
+    color: #351044;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    margin: 15px 0;
+}
+
+
+/* BOTÓN */
+
+.producto .btn {
+    display: inline-block;
+
+    background-color: #8207DB;
+
+    color: white;
+
+    text-decoration: none;
+
+    padding: 10px 20px;
+
+    border-radius: 25px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+
+/* EFECTO DEL BOTÓN */
+
+.producto .btn:hover {
+    background-color: #C27AFF;
+
+    transform: scale(1.05);
+}
+
+
+/* MENSAJE FINAL */
+
+.mensaje-catalogo {
+    background-color: white;
+
+    max-width: 700px;
+
+    margin: 60px auto 20px;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    box-shadow: 0 5px 15px rgba(130, 7, 219, 0.15);
+}
+
+
+.mensaje-catalogo p:first-child {
+    color: #8207DB;
+
+    font-size: 22px;
+
+    font-weight: bold;
+}
+
+
+.mensaje-catalogo p {
+    color: #5c3b68;
+
+    font-size: 17px;
+}
+
+
+/* BOTÓN DEL MENSAJE */
+
+.mensaje-catalogo .btn {
+    display: inline-block;
+
+    background-color: #8207DB;
+
+    color: white;
+
+    text-decoration: none;
+
+    padding: 12px 22px;
+
+    border-radius: 25px;
+
+    font-weight: bold;
+
+    margin-top: 10px;
+
+    transition: 0.3s;
+}
+
+
+.mensaje-catalogo .btn:hover {
+    background-color: #C27AFF;
+}
+
+
+/* ============================= */
+/* ADAPTACIÓN PARA CELULAR */
+/* ============================= */
+
+@media (max-width: 700px) {
+
+    .catalogo {
+        padding: 50px 6%;
+    }
+
+    .catalogo h2 {
+        font-size: 28px;
+    }
+
+    .catalogo h3 {
+        font-size: 24px;
+    }
+
+}
