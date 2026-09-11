@@ -104,6 +104,174 @@ footer{
   nav{justify-content:center}
 }
 
+/* ============================= */
+/* PÁGINA DE BIENVENIDA INDEX2 */
+/* ============================= */
+
+.pagina-bienvenida {
+    margin: 0;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: linear-gradient(
+        #17032ae6,
+        #b986ece6
+    );
+
+    font-family: Arial, sans-serif;
+}
+
+
+/* CONTENEDOR PRINCIPAL */
+
+.bienvenida {
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    padding: 30px;
+}
+
+
+/* TARJETA */
+
+.tarjeta-bienvenida {
+    max-width: 500px;
+
+    width: 100%;
+
+    background-color: white;
+
+    padding: 45px 30px;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow: 0 8px 25px rgba(130, 7, 219, 0.20);
+}
+
+
+/* LOGO */
+
+.logo-bienvenida {
+    width: 180px;
+
+    max-width: 80%;
+
+    margin-bottom: 20px;
+}
+
+
+/* TÍTULO */
+
+.tarjeta-bienvenida h1 {
+    color: #8207DB;
+
+    font-size: 30px;
+
+    margin-bottom: 15px;
+}
+
+
+/* TEXTOS */
+
+.tarjeta-bienvenida p {
+    color: #5C3B68;
+
+    font-size: 17px;
+
+    line-height: 1.6;
+}
+
+
+/* FORMULARIO */
+
+.tarjeta-bienvenida form {
+    margin-top: 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+
+/* CAMPO DE CORREO */
+
+.tarjeta-bienvenida input {
+    padding: 14px;
+
+    border: 2px solid #C27AFF;
+
+    border-radius: 25px;
+
+    font-size: 16px;
+
+    text-align: center;
+
+    outline: none;
+}
+
+
+/* EFECTO DEL INPUT */
+
+.tarjeta-bienvenida input:focus {
+    border-color: #8207DB;
+}
+
+
+/* BOTÓN */
+
+.tarjeta-bienvenida .btn {
+    border: none;
+
+    cursor: pointer;
+
+    background-color: #8207DB;
+
+    color: white;
+
+    padding: 14px 22px;
+
+    border-radius: 25px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+
+/* EFECTO DEL BOTÓN */
+
+.tarjeta-bienvenida .btn:hover {
+    background-color: #C27AFF;
+
+    transform: scale(1.03);
+}
+
+
+/* MENSAJE DE PRIVACIDAD */
+
+.mensaje-privacidad {
+    font-size: 13px !important;
+
+    color: #777 !important;
+
+    margin-top: 20px;
+}
+
 /* ==============================
    LOGIN, REGISTRO Y PERFIL
    ============================== */
@@ -705,22 +873,3 @@ footer{
 }
 
 
-/* ============================= */
-/* ADAPTACIÓN PARA CELULAR */
-/* ============================= */
-
-@media (max-width: 700px) {
-
-    .catalogo {
-        padding: 50px 6%;
-    }
-
-    .catalogo h2 {
-        font-size: 28px;
-    }
-
-    .catalogo h3 {
-        font-size: 24px;
-    }
-
-}
