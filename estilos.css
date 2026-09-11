@@ -329,3 +329,163 @@ footer{
 
     font-size: 45px;
 }
+
+/* ============================= */
+/* SECCIÓN SOBRE NOSOTROS */
+/* ============================= */
+
+.sobre-nosotros {
+    background-color: #faf5ff;
+    padding: 70px 8%;
+    text-align: center;
+}
+
+
+/* Título principal */
+
+.sobre-nosotros h2 {
+    color: #2e0a48;
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+
+/* Texto de bienvenida */
+
+.sobre-nosotros .bienvenida {
+    color: #8207DB;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+
+/* Párrafos */
+
+.sobre-nosotros > p {
+    max-width: 600px;
+    margin: 0 auto 15px;
+    line-height: 1.5;
+    color: #5c3b68;
+    font-size: 17px;
+}
+
+
+/* Texto importante */
+
+.sobre-nosotros strong {
+    color: #8207DB;
+}
+
+
+/* ============================= */
+/* TÍTULO DE VALORES */
+/* ============================= */
+
+.sobre-nosotros h3 {
+    color: #8207DB;
+    font-size: 28px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+
+/* ============================= */
+/* TARJETAS DE VALORES */
+/* ============================= */
+
+.valores {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(200px, 1fr));
+
+    gap: 25px;
+
+    max-width: 1000px;
+
+    margin: auto;
+}
+
+
+/* Cada tarjeta */
+
+.valor {
+    background-color: white;
+
+    padding: 30px 20px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 5px 15px rgba(130, 7, 219, 0.15);
+
+    transition: 0.3s;
+}
+
+
+/* Efecto cuando pasamos el mouse */
+
+.valor:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 10px 25px rgba(130, 7, 219, 0.25);
+}
+
+
+/* Icono */
+
+.valor span {
+    font-size: 45px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+
+/* Título de cada valor */
+
+.valor h4 {
+    color: #8207DB;
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+
+/* Texto de cada valor */
+
+.valor p {
+    color: #654b70;
+    line-height: 1.5;
+    font-size: 15px;
+}
+
+
+/* ============================= */
+/* MENSAJE FINAL */
+/* ============================= */
+
+.sobre-nosotros .final {
+    margin-top: 50px;
+
+    color: #8207DB;
+
+    font-size: 18px;
+
+    font-weight: bold;
+}
+
+
+/* Frase final */
+
+.sobre-nosotros .frase {
+    color: #351044;
+
+    font-size: 20px;
+
+    font-style: italic;
+
+    font-weight: bold;
+
+    margin-top: 15px;
+}
