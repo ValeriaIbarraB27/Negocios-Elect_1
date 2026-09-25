@@ -127,9 +127,25 @@
 
             </div>
 
+         <h4 style="margin-top: 40px;">Contáctanos</h2>
+            <form id="formContacto">
+                <input type="text" placeholder="Tu Nombre">
+                <input type="email" placeholder="Tu Correo">
+                <textarea rows="4" placeholder="Escribe tu mensaje..."></textarea>
+                <button type="submit" class="btn">Enviar Mensaje</button>
+            </form>
+            <p id="msg-exito" style="color: rgb(152, 47, 205); margin-top: 10px; display: none;">¡Mensaje enviado correctamente!</p>
         </section>
+    </main> 
+<script>
+        document.getElementById('formContacto').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('msg-exito').style.display = 'block';
+            this.reset();
+            setTimeout(() => document.getElementById('msg-exito').style.display = 'none', 3000);
+        });
+    </script>
 
-    </main>
 
 
     <!-- PIE DE PÁGINA -->

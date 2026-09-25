@@ -873,3 +873,237 @@ footer{
 }
 
 
+/* Overlay oscuro de fondo */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Caja de la alerta personalizada */
+.modal-box {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+}
+
+/* =====================================
+   CARRITO DE COMPRAS
+   ===================================== */
+
+
+/* Caja principal del carrito */
+
+.caja {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 4px 15px #8207db18;
+}
+
+
+/* Cada producto dentro del carrito */
+
+.item {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 18px 0;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+/* Nombre del producto */
+
+.item span {
+    font-size: 17px;
+}
+
+
+/* Botón para quitar */
+
+.secundario {
+    border: 1px solid #8207DB;
+
+    color: #8207DB;
+
+    background: white;
+
+    padding: 9px 16px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+
+.secundario:hover {
+    background: #f2ddff;
+}
+
+
+/* Total */
+
+.total {
+    text-align: right;
+
+    font-size: 23px;
+
+    font-weight: bold;
+
+    color: #8207DB;
+
+    margin-top: 25px;
+}
+
+
+/* Mensaje cuando no hay productos */
+
+.carrito-vacio {
+    text-align: center;
+
+    padding: 40px 20px;
+}
+
+
+.carrito-vacio h2 {
+    color: #8207DB;
+
+    margin-bottom: 10px;
+}
+
+/* =====================================
+   PANEL ADMINISTRATIVO
+   ===================================== */
+
+
+/* Espacio entre las cajas */
+
+.admin-productos {
+    margin-top: 25px;
+}
+
+
+/* Formulario */
+
+.formulario {
+    display: grid;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+/* Etiquetas */
+
+.formulario label {
+    font-weight: bold;
+
+    color: #555;
+}
+
+
+/* Campos */
+
+.formulario input,
+.formulario select {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #d8b8f5;
+
+    border-radius: 10px;
+
+    background: white;
+
+    outline: none;
+
+    font-size: 15px;
+
+}
+
+
+/* Cuando hacemos clic en un campo */
+
+.formulario input:focus,
+.formulario select:focus {
+
+    border-color: #8207DB;
+
+    box-shadow:
+        0 0 0 2px #c27aff55;
+
+}
+
+
+/* Cada producto del administrador */
+
+.admin-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #eeeeee;
+
+}
+
+
+/* Nombre del producto */
+
+.admin-item span {
+
+    font-size: 16px;
+
+}
+
+
+/* Botón eliminar */
+
+.admin-item .secundario {
+
+    border-color: #C27AFF;
+
+    color: #8207DB;
+
+}
+
+
+.admin-item .secundario:hover {
+
+    background: #f2ddff;
+
+}
+
+

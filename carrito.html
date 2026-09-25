@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <!-- Título de la pestaña -->
+    <title>Carrito | ValFer Cosmetic</title>
+
+    <!-- Conectamos el archivo CSS -->
+    <link rel="stylesheet" href="estilos.css">
+
+</head>
+
+
+<body>
+
+    <!-- ==============================
+         ENCABEZADO
+         ============================== -->
+
+    <header>
+
+        <!-- Logo/nombre del negocio -->
+        <a class="logo" href="index.html">
+
+            ValFer
+
+            <span>
+                Cosmetic
+            </span>
+
+        </a>
+
+
+        <!-- Menú de navegación -->
+        <nav>
+
+            <a href="index.html">
+                Inicio
+            </a>
+
+            <a href="catalogo.html">
+                Catálogo
+            </a>
+
+            <a href="carrito.html">
+
+                🛒 Carrito
+
+                <!--
+                    Aquí aparecerá la cantidad
+                    de productos que hay en el carrito.
+                -->
+                <b id="contador">
+                    0
+                </b>
+
+            </a>
+
+            <a href="admin.html">
+                Admin
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ==============================
+         CONTENIDO PRINCIPAL
+         ============================== -->
+
+    <main class="seccion">
+
+
+        <!-- Título -->
+
+        <div class="titulo">
+
+            <p class="etiqueta">
+                🛒 Compra simulada
+            </p>
+
+            <h1>
+                Mi carrito
+            </h1>
+
+            <p>
+                Revisa los productos que seleccionaste.
+            </p>
+
+        </div>
+
+
+        <!--
+            Aquí JavaScript mostrará los productos
+            que el usuario haya agregado.
+
+            Por ejemplo:
+
+            💄 Labial Rosa       $120
+            🎁 Set de regalo    $250
+
+            Total: $370
+        -->
+
+        <div
+            id="carrito"
+            class="caja"
+        >
+
+        </div>
+
+
+    </main>
+
+
+ <!-- PIE DE PÁGINA -->
+    <footer>
+
+        <p>
+            © 2026 ValFer Cosméticos y Regalos
+        </p>
+
+        <p>
+            Detalles, Cosméticos y Regalos siempre pensados
+            con AMOR hacia Ti🥰
+        </p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <!-- Configuración de caracteres -->
+    <meta charset="UTF-8">
+
+    <!-- Adaptación para celulares -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Título -->
+    <title>Administración | ValFer Cosmetic</title>
+
+    <!-- Archivo CSS -->
+    <link rel="stylesheet" href="estilos.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ==============================
+         ENCABEZADO
+         ============================== -->
+
+    <header>
+
+        <!-- Nombre del negocio -->
+
+        <a class="logo" href="index.html">
+
+            ValFer
+
+            <span>
+                Cosmetic
+            </span>
+
+        </a>
+
+
+        <!-- Menú -->
+
+        <nav>
+
+            <a href="index.html">
+                Inicio
+            </a>
+
+            <a href="catalogo.html">
+                Catálogo
+            </a>
+
+            <a href="carrito.html">
+
+                🛒 Carrito
+
+                <b id="contador">
+                    0
+                </b>
+
+            </a>
+
+            <a href="admin.html">
+                Admin
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ==============================
+         CONTENIDO PRINCIPAL
+         ============================== -->
+
+    <main class="seccion">
+
+
+        <!-- TÍTULO -->
+
+        <div class="titulo">
+
+            <p class="etiqueta">
+                ⚙️ Administración
+            </p>
+
+            <h1>
+                Panel administrativo
+            </h1>
+
+            <p>
+                Administra los productos de ValFer Cosmetic.
+            </p>
+
+        </div>
+
+
+
+        <!-- ==============================
+             FORMULARIO
+             ============================== -->
+
+        <section class="caja">
+
+            <h2>
+                Agregar producto
+            </h2>
+
+
+            <!--
+                Este formulario permite registrar
+                un nuevo producto.
+
+                JavaScript se encargará de guardar
+                la información.
+            -->
+
+            <form
+                id="formAdmin"
+                class="formulario"
+            >
+
+
+                <!-- Nombre -->
+
+                <label for="nombre">
+                    Nombre del producto
+                </label>
+
+                <input
+                    id="nombre"
+                    type="text"
+                    placeholder="Ej. Labial Rosa"
+                    required
+                >
+
+
+                <!-- Precio -->
+
+                <label for="precio">
+                    Precio
+                </label>
+
+                <input
+                    id="precio"
+                    type="number"
+                    placeholder="Ej. 120"
+                    min="1"
+                    step="0.01"
+                    required
+                >
+
+
+                <!-- Categoría -->
+
+                <label for="cat">
+                    Categoría
+                </label>
+
+                <select
+                    id="cat"
+                    required
+                >
+
+                    <option value="">
+                        Selecciona una categoría
+                    </option>
+
+                    <option value="maquillaje">
+                        Maquillaje
+                    </option>
+
+                    <option value="cuidado">
+                        Cuidado personal
+                    </option>
+
+                    <option value="regalos">
+                        Regalos
+                    </option>
+
+                </select>
+
+
+                <!-- Emoji -->
+
+                <label for="emoji">
+                    Imagen representativa
+                </label>
+
+                <input
+                    id="emoji"
+                    type="text"
+                    placeholder="Ej. 💄"
+                    maxlength="2"
+                >
+
+
+                <!-- Botón -->
+
+                <button
+                    class="btn"
+                    type="submit"
+                >
+
+                    + Agregar producto
+
+                </button>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- ==============================
+             PRODUCTOS REGISTRADOS
+             ============================== -->
+
+        <section class="caja admin-productos">
+
+            <h2>
+                Productos registrados
+            </h2>
+
+
+            <!--
+                JavaScript colocará aquí
+                todos los productos.
+            -->
+
+            <div id="adminLista">
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+
+        <p>
+            © 2026 ValFer Cosméticos y Regalos
+        </p>
+
+        <p>
+            Detalles, Cosméticos y Regalos siempre pensados
+            con AMOR hacia Ti🥰
+        </p>
+    </footer>
+
+</body>
+
+</html>
