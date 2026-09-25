@@ -2,187 +2,172 @@
 <html lang="es">
 
 <head>
+
+    <!-- Permite utilizar caracteres como ñ y emojis -->
     <meta charset="UTF-8">
+
+    <!-- Hace que la página se adapte a celulares -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Productos | ValFer Cosmetic</title>
+    <!-- Nombre que aparece en la pestaña del navegador -->
+    <title>Catálogo | ValFer Cosmetic</title>
 
+    <!-- Conectamos nuestro archivo CSS -->
     <link rel="stylesheet" href="estilos.css">
+
 </head>
+
 
 <body>
 
-    <!-- ENCABEZADO -->
+
+    <!-- =========================================
+         ENCABEZADO
+         ========================================= -->
+
     <header>
 
-        <img src="img/valfer logo.jpeg"
-             class="mini-logo"
-             alt="ValFer Cosmetic">
+        <!-- Logo de ValFer Cosmetic -->
+        <a href="index.html">
 
+            <img
+                src="img/valfer logo.jpeg"
+                class="mini-logo"
+                alt="ValFer Cosmetic"
+            >
+
+        </a>
+
+
+        <!-- Menú de navegación -->
         <nav>
-            <a href="index.html">Inicio</a>
-            <a href="sobre.html">Sobre nosotros</a>
-            <a href="perfil.html">Perfil</a>
+
+            <a href="index.html">
+                Inicio
+            </a>
+
+            <a href="sobre.html">
+                Sobre nosotros
+            </a>
+
+            <a href="catalogo.html">
+                Catálogo
+            </a>
+
+            <a href="carrito.html">
+                🛒 Carrito
+                <b id="contador">0</b>
+            </a>
+
+            <a href="perfil.html">
+                Perfil
+            </a>
+
+            <a href="admin.html">
+                Admin
+            </a>
+
         </nav>
 
     </header>
 
 
-    <!-- CATÁLOGO -->
+
+    <!-- =========================================
+         CONTENIDO PRINCIPAL
+         ========================================= -->
+
     <main>
+
 
         <section class="catalogo">
 
-            <h2>✨ Nuestro Catálogo ✨</h2>
 
-            <p class="descripcion-catalogo">
-                Encuentra cosméticos, accesorios y detallitos
-                preparados especialmente para ti. 💕
-            </p>
+            <!-- TÍTULO DEL CATÁLOGO -->
 
+            <div class="titulo">
 
-            <!-- CATEGORÍA COSMÉTICOS -->
-            <h3>💄 Cosméticos</h3>
+                <p class="etiqueta">
+                    💜 ValFer Cosmetic
+                </p>
 
-            <div class="productos">
+                <h1>
+                    ✨ Nuestro Catálogo ✨
+                </h1>
 
-                <div class="producto">
+                <p class="descripcion-catalogo">
 
-                    <!-- ESPACIO PARA IMAGEN -->
-                    <div class="imagen-producto">
-                        📷
-                    </div>
+                    Encuentra cosméticos, accesorios y
+                    detallitos preparados especialmente para ti. 💕
 
-                    <h4>Bases de maquillaje</h4>
-
-                    <p>
-                        Unifica el tono de tu piel y logra un acabado mate o natural.
-                    </p>
-
-                    <span class="precio">$000.00</span>
-
-                    <a href="contacto.html" class="btn">
-                        Consultar
-                    </a>
-
-                </div>
-
-
-                <div class="producto">
-
-                    <div class="imagen-producto">
-                        📷
-                    </div>
-
-                    <h4>Limpiador facial</h4>
-
-                    <p>
-                        Elimina impurezas y maquillaje.
-                    </p>
-
-                    <span class="precio">$000.00</span>
-
-                    <a href="contacto.html" class="btn">
-                        Consultar
-                    </a>
-
-                </div>
-
-
-                <div class="producto">
-
-                    <div class="imagen-producto">
-                        📷
-                    </div>
-
-                    <h4>Brocha para rubor</h4>
-
-                    <p>
-                        De corte angulado o redondeado para aplicar un pop de color a tus mejillas.
-                    </p>
-
-                    <span class="precio">$000.00</span>
-
-                    <a href="contacto.html" class="btn">
-                        Consultar
-                    </a>
-
-                </div>
+                </p>
 
             </div>
 
 
-            <!-- CATEGORÍA REGALOS -->
-            <h3>🎁 Regalos</h3>
 
-            <div class="productos">
+            <!-- =========================================
+                 BUSCADOR Y FILTRO
+                 ========================================= -->
 
-                <div class="producto">
-
-                    <div class="imagen-producto">
-                        📷
-                    </div>
-
-                    <h4>Regalo especial</h4>
-
-                    <p>
-                        Un bonito detalle para esa persona especial.
-                    </p>
-
-                    <span class="precio">$000.00</span>
-
-                    <a href="contacto.html" class="btn">
-                        Consultar
-                    </a>
-
-                </div>
+            <div class="filtros">
 
 
-                <div class="producto">
+                <!-- Buscar producto por nombre -->
 
-                    <div class="imagen-producto">
-                        📷
-                    </div>
-
-                    <h4>Kit de regalo</h4>
-
-                    <p>
-                        Un detalle preparado con mucho cariño.
-                    </p>
-
-                    <span class="precio">$000.00</span>
-
-                    <a href="contacto.html" class="btn">
-                        Consultar
-                    </a>
-
-                </div>
+                <input
+                    id="busqueda"
+                    type="text"
+                    placeholder="🔎 Buscar producto..."
+                >
 
 
-                <div class="producto">
+                <!-- Filtrar por categoría -->
 
-                    <div class="imagen-producto">
-                        📷
-                    </div>
+                <select id="categoria">
 
-                    <h4>Detalle personalizado</h4>
+                    <option value="todos">
+                        Todas las categorías
+                    </option>
 
-                    <p>
-                        Diseñado por ti para esa personita especial.
-                    </p>
+                    <option value="maquillaje">
+                        💄 Maquillaje
+                    </option>
 
-                    <span class="precio">$000.00</span>
+                    <option value="cuidado">
+                        🧴 Cuidado personal
+                    </option>
 
-                    <a href="contacto.html" class="btn">
-                        Consultar
-                    </a>
+                    <option value="regalos">
+                        🎁 Regalos
+                    </option>
 
-                </div>
+                </select>
 
             </div>
 
 
-            <!-- MENSAJE FINAL -->
+
+            <!-- =========================================
+                 PRODUCTOS
+                 
+                 Los productos se mostrarán
+                 automáticamente mediante JavaScript.
+                 ========================================= -->
+
+            <div
+                id="productos"
+                class="productos"
+            >
+
+            </div>
+
+
+
+            <!-- =========================================
+                 MENSAJE FINAL
+                 ========================================= -->
+
             <div class="mensaje-catalogo">
 
                 <p>
@@ -190,32 +175,89 @@
                 </p>
 
                 <p>
-                    Contáctanos para conocer disponibilidad,
-                    precios y opciones personalizadas.
+
+                    Consulta los detalles y agrégalo
+                    a tu carrito.
+
                 </p>
 
-                <a href="contacto.html" class="btn">
+                <a
+                    href="contacto.html"
+                    class="btn"
+                >
                     💬 Contáctanos
                 </a>
 
             </div>
+
 
         </section>
 
     </main>
 
 
-    <!-- PIE DE PÁGINA -->
+
+    <!-- =========================================
+         VENTANA DE DETALLE DEL PRODUCTO
+         ========================================= -->
+
+    <div
+        id="modal"
+        class="modal oculto"
+    >
+
+        <div class="modal-box">
+
+
+            <!-- Botón para cerrar -->
+
+            <button
+                class="cerrar"
+                onclick="cerrarDetalle()"
+            >
+                ×
+            </button>
+
+
+            <!-- Aquí aparecerá la información
+                 del producto -->
+
+            <div id="detalle">
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         PIE DE PÁGINA
+         ========================================= -->
+
     <footer>
 
-        <p>© 2026 ValFer Cosméticos y Regalos</p>
+        <p>
+            © 2026 ValFer Cosméticos y Regalos
+        </p>
 
         <p>
-             Detalles, Cosméticos y Regalos siempre pensados
-            con AMOR hacia Ti🥰
+            Detalles, Cosméticos y Regalos siempre
+            pensados con AMOR hacia Ti 🥰
         </p>
 
     </footer>
+
+
+
+    <!-- =========================================
+         JAVASCRIPT
+         ========================================= -->
+
+    <script src="js/app.js"></script>
+
 
 </body>
 
