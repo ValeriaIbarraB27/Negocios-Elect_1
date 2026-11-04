@@ -1,0 +1,1333 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Estrategia & Marketing | ValFer Cosmetic</title>
+
+<style>
+
+/* ============================= */
+/* PALETA DE COLORES VALFER */
+/* ============================= */
+
+:root {
+    --primary: #8207DB;
+    --primary-hover: #C27AFF;
+    --primary-light: #f1ddff;
+    --secondary: #351044;
+    --accent: #e84393;
+    --bg: #faf5ff;
+    --card-bg: #ffffff;
+    --text: #2b1738;
+    --success: #28a745;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+/* ============================= */
+/* NAVEGACIÓN */
+/* ============================= */
+
+.nav-modulo {
+    background: linear-gradient(135deg, #351044, #8207DB);
+    padding: 15px 20px;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    align-items: center;
+}
+
+.nav-modulo button,
+.nav-modulo a {
+    background: rgba(255,255,255,0.12);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.nav-modulo button.active,
+.nav-modulo button:hover,
+.nav-modulo a:hover {
+    background: #C27AFF;
+    color: white;
+}
+
+/* ============================= */
+/* CONTENEDOR */
+/* ============================= */
+
+.container {
+    max-width: 1150px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    color: var(--primary);
+}
+
+/* ============================= */
+/* SECCIONES */
+/* ============================= */
+
+.seccion-demo {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.seccion-demo.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================= */
+/* TARJETAS */
+/* ============================= */
+
+.card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 5px 18px rgba(130,7,219,0.13);
+    margin-bottom: 25px;
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+/* ============================= */
+/* PROMOCIONES */
+/* ============================= */
+
+.promo-banner {
+    background: linear-gradient(135deg, #8207DB, #C27AFF);
+    color: white;
+    padding: 25px;
+    border-radius: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.promo-banner h3 {
+    color: white;
+}
+
+.promo-banner p {
+    margin-bottom: 0;
+}
+
+.code-badge {
+    background: white;
+    color: #8207DB;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border: 2px dashed #8207DB;
+}
+
+/* ============================= */
+/* ESCAPARATE */
+/* ============================= */
+
+.hero-campaign {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    align-items: center;
+}
+
+.hero-campaign img {
+    width: 100%;
+    border-radius: 18px;
+    max-height: 320px;
+    object-fit: cover;
+}
+
+.etiqueta-destacada {
+    display: inline-block;
+    background: #ffe0f0;
+    color: #d63384;
+    padding: 7px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.hero-campaign h1 {
+    font-size: 30px;
+}
+
+/* ============================= */
+/* FORMULARIOS */
+/* ============================= */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dfc5f5;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+    background: #fff;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(130,7,219,0.15);
+}
+
+/* ============================= */
+/* BOTONES */
+/* ============================= */
+
+.btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.btn-accent {
+    background: #e84393;
+}
+
+.btn-accent:hover {
+    background: #c92d7c;
+}
+
+.btn-secondary {
+    background: #6c5478;
+}
+
+/* ============================= */
+/* COMENTARIOS */
+/* ============================= */
+
+.grid-comments {
+    display: grid;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.comment-item {
+    background: #f7eaff;
+    padding: 18px;
+    border-radius: 12px;
+    border-left: 5px solid var(--primary);
+}
+
+.comment-item strong {
+    color: var(--secondary);
+}
+
+.estrellas {
+    color: #ffae00;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.sin-comentarios {
+    color: #80678b;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Calificación */
+
+.calificacion {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.calificacion input {
+    display: none;
+}
+
+.calificacion label {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.calificacion label:hover,
+.calificacion label:hover ~ label,
+.calificacion input:checked ~ label {
+    color: #ffae00;
+}
+
+/* ============================= */
+/* PUBLICACIONES */
+/* ============================= */
+
+.grid-c2c {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.item-c2c {
+    border: 1px solid #ead8f8;
+    border-radius: 15px;
+    padding: 18px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(130,7,219,0.08);
+}
+
+.item-c2c h4 {
+    color: var(--primary);
+}
+
+.item-c2c img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* ============================= */
+/* SUBASTA */
+/* ============================= */
+
+.auction-box {
+    text-align: center;
+    border: 2px solid var(--primary-light);
+    padding: 25px;
+    border-radius: 18px;
+}
+
+.timer {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 15px 0;
+}
+
+.bids-history {
+    max-height: 150px;
+    overflow-y: auto;
+    text-align: left;
+    margin-top: 20px;
+    background: #faf5ff;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+/* ============================= */
+/* NOTIFICACIONES */
+/* ============================= */
+
+.alert-toast {
+    padding: 12px 15px;
+    background: #d4edda;
+    color: #155724;
+    border-radius: 10px;
+    margin-top: 15px;
+    display: none;
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media(max-width: 850px) {
+    .grid-c2c {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 600px) {
+
+    .hero-campaign {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-c2c {
+        grid-template-columns: 1fr;
+    }
+
+    .promo-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero-campaign h1 {
+        font-size: 25px;
+    }
+
+    .container {
+        padding: 0 12px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ============================= -->
+<!-- MENÚ DE NAVEGACIÓN -->
+<!-- ============================= -->
+
+<nav class="nav-modulo">
+
+    <button class="active" onclick="verModulo('promos', this)">
+        💜 Promociones
+    </button>
+
+    <button onclick="verModulo('landing', this)">
+        ✨ Escaparate
+    </button>
+
+    <button onclick="verModulo('comunidad', this)">
+        💬 Comunidad
+    </button>
+
+    <button onclick="verModulo('c2c-publicar', this)">
+        📦 Publicar
+    </button>
+
+    <button onclick="verModulo('c2c-mis-items', this)">
+        🛍️ Mis publicaciones
+    </button>
+
+    <button onclick="verModulo('subasta', this)">
+        🎀 Subasta
+    </button>
+
+    <a href="catalogo.html">💄 Catálogo</a>
+
+    <a href="perfil.html">👤 Mi perfil</a>
+
+</nav>
+
+<div class="container">
+
+<!-- ============================= -->
+<!-- 1. PROMOCIONES -->
+<!-- ============================= -->
+
+<section id="mod-promos" class="seccion-demo active">
+
+    <h2>💜 Promociones ValFer Cosmetic</h2>
+
+    <p>¡Consiente tu belleza con nuestros increíbles descuentos!</p>
+
+    <div class="promo-banner">
+
+        <div>
+            <h3>🎀 ¡Especial de belleza!</h3>
+            <p>Obtén un 10% de descuento en tu compra.</p>
+        </div>
+
+        <div>
+            Código:
+            <span class="code-badge">VALFER10</span>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>🛍️ Simula tu compra</h3>
+
+        <div class="form-group">
+
+            <label>Selecciona un producto:</label>
+
+            <select id="select-producto" class="form-control"
+            onchange="actualizarCarrito()">
+
+                <option value="120">Labial Matte - $120</option>
+                <option value="180">Máscara de pestañas - $180</option>
+                <option value="250">Paleta de sombras - $250</option>
+                <option value="150">Rubor - $150</option>
+                <option value="200">Base de maquillaje - $200</option>
+                <option value="130">Delineador - $130</option>
+                <option value="300">Kit de skincare - $300</option>
+                <option value="350">Kit de maquillaje - $350</option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Cantidad:</label>
+
+            <input type="number" id="input-cantidad"
+            class="form-control" value="1" min="1"
+            style="max-width:150px;"
+            onchange="actualizarCarrito()">
+
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+
+            <input type="text" id="input-cupon"
+            class="form-control"
+            placeholder="Código VALFER10"
+            style="max-width:250px;">
+
+            <button class="btn btn-accent"
+            onclick="aplicarCupon()">
+                Aplicar cupón
+            </button>
+
+        </div>
+
+        <div id="toast-cupon" class="alert-toast"></div>
+
+        <h3 id="total-carrito">
+            Total: $120.00 MXN
+        </h3>
+
+    </div>
+
+</section>
+
+<!-- ============================= -->
+<!-- 2. ESCAPARATE -->
+<!-- ============================= -->
+
+<section id="mod-landing" class="seccion-demo">
+
+    <div class="card hero-campaign">
+
+        <div>
+
+            <span class="etiqueta-destacada">
+                ✨ PRODUCTO DESTACADO
+            </span>
+
+            <h1>Kit de maquillaje ValFer</h1>
+
+            <p>
+                Encuentra tus productos favoritos de belleza.
+                Crea looks increíbles y descubre nuevas opciones
+                para consentirte.
+            </p>
+
+            <button class="btn"
+            onclick="location.href='catalogo.html'">
+                💄 Comprar ahora
+            </button>
+
+        </div>
+
+        <div>
+
+            <img
+            src="img/kit-maquillaje.jpg"
+            alt="Kit de maquillaje ValFer"
+            onerror="this.src='https://placehold.co/500x350/f1ddff/8207DB?text=ValFer+Cosmetic'">
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>💗 Lo que dicen nuestras clientas</h2>
+
+        <div class="grid-comments">
+
+            <div class="comment-item">
+
+                <strong>Mariana R.</strong>
+
+                <div class="estrellas">★★★★★</div>
+
+                <p>
+                    ¡Me encantaron los productos!
+                    Todo llegó en excelentes condiciones.
+                </p>
+
+            </div>
+
+            <div class="comment-item">
+
+                <strong>Andrea P.</strong>
+
+                <div class="estrellas">★★★★★</div>
+
+                <p>
+                    Los productos son hermosos y
+                    la atención es excelente.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ============================= -->
+<!-- 3. COMUNIDAD -->
+<!-- ============================= -->
+
+<section id="mod-comunidad" class="seccion-demo">
+
+    <div class="card">
+
+        <h2>💬 Comunidad ValFer Cosmetic</h2>
+
+        <p>
+            Tu opinión es muy importante para nosotros.
+            Comparte tu experiencia y califica nuestros productos.
+        </p>
+
+        <form id="form-comentario"
+        onsubmit="agregarComentario(event)">
+
+            <div class="form-group">
+
+                <label>Tu nombre:</label>
+
+                <input type="text" id="com-nombre"
+                class="form-control"
+                required
+                placeholder="Ej. Sofia López">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Tu calificación:</label>
+
+                <div class="calificacion">
+
+                    <input type="radio" id="estrella5"
+                    name="calificacion" value="5" required>
+                    <label for="estrella5">★</label>
+
+                    <input type="radio" id="estrella4"
+                    name="calificacion" value="4">
+                    <label for="estrella4">★</label>
+
+                    <input type="radio" id="estrella3"
+                    name="calificacion" value="3">
+                    <label for="estrella3">★</label>
+
+                    <input type="radio" id="estrella2"
+                    name="calificacion" value="2">
+                    <label for="estrella2">★</label>
+
+                    <input type="radio" id="estrella1"
+                    name="calificacion" value="1">
+                    <label for="estrella1">★</label>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Tu comentario:</label>
+
+                <textarea id="com-texto"
+                class="form-control"
+                rows="4"
+                required
+                placeholder="Cuéntanos tu experiencia..."></textarea>
+
+            </div>
+
+            <button type="submit" class="btn">
+                💜 Publicar comentario
+            </button>
+
+        </form>
+
+        <div id="toast-comentario" class="alert-toast"></div>
+
+        <h3>Comentarios recientes</h3>
+
+        <div id="lista-comentarios" class="grid-comments">
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ============================= -->
+<!-- 4. PUBLICAR PRODUCTOS -->
+<!-- ============================= -->
+
+<section id="mod-c2c-publicar" class="seccion-demo">
+
+    <div class="card" style="max-width:650px;margin:auto;">
+
+        <h2>🎀 Publica tu producto</h2>
+
+        <p>
+            ¿Tienes productos de belleza que quieras compartir?
+            Publícalos en nuestra comunidad.
+        </p>
+
+        <form id="form-c2c" onsubmit="publicarC2C(event)">
+
+            <div class="form-group">
+
+                <label>Nombre del producto:</label>
+
+                <input type="text" id="c2c-titulo"
+                class="form-control"
+                required
+                placeholder="Ej. Paleta de sombras">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Precio ($ MXN):</label>
+
+                <input type="number" id="c2c-precio"
+                class="form-control"
+                required min="1"
+                placeholder="250">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Descripción:</label>
+
+                <textarea id="c2c-desc"
+                class="form-control"
+                rows="3"
+                required
+                placeholder="Describe tu producto..."></textarea>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Imagen del producto:</label>
+
+                <input type="file" id="c2c-foto"
+                accept="image/*"
+                class="form-control">
+
+            </div>
+
+            <button type="submit" class="btn btn-accent"
+            style="width:100%;">
+                Publicar producto
+            </button>
+
+        </form>
+
+        <div id="toast-c2c" class="alert-toast"></div>
+
+    </div>
+
+</section>
+
+<!-- ============================= -->
+<!-- 5. MIS PUBLICACIONES -->
+<!-- ============================= -->
+
+<section id="mod-c2c-mis-items" class="seccion-demo">
+
+    <div class="card">
+
+        <h2>🛍️ Mis productos publicados</h2>
+
+        <p>
+            Aquí puedes consultar y administrar
+            tus publicaciones.
+        </p>
+
+        <div id="grid-mis-publicaciones" class="grid-c2c">
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ============================= -->
+<!-- 6. SUBASTA -->
+<!-- ============================= -->
+
+<section id="mod-subasta" class="seccion-demo">
+
+    <div class="card auction-box"
+    style="max-width:600px;margin:auto;">
+
+        <span class="etiqueta-destacada">
+            🎀 SUBASTA ESPECIAL
+        </span>
+
+        <h2>Kit de maquillaje de colección</h2>
+
+        <img
+        src="img/kit-maquillaje.jpg"
+        alt="Kit de maquillaje"
+        style="width:180px;height:180px;object-fit:cover;border-radius:15px;"
+        onerror="this.src='https://placehold.co/180x180/f1ddff/8207DB?text=Kit+Beauty'">
+
+        <div class="timer" id="auction-timer">
+            04:59
+        </div>
+
+        <p>
+            Oferta más alta actual:
+            <strong id="monto-subasta"
+            style="color:var(--primary);font-size:1.3rem;">
+                $320.00 MXN
+            </strong>
+        </p>
+
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+
+            <input type="number"
+            id="input-oferta"
+            class="form-control"
+            style="width:150px;"
+            placeholder="Tu oferta"
+            min="321">
+
+            <button class="btn btn-accent"
+            onclick="hacerOferta()">
+                Ofertar
+            </button>
+
+        </div>
+
+        <div id="toast-subasta" class="alert-toast"></div>
+
+        <div class="bids-history">
+
+            <strong>Historial de ofertas:</strong>
+
+            <ul id="lista-ofertas">
+
+                <li>Cliente A ofertó $320.00 MXN</li>
+
+                <li>Cliente B ofertó $300.00 MXN</li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+<script>
+
+/* ============================= */
+/* NAVEGACIÓN */
+/* ============================= */
+
+function verModulo(idModulo, boton) {
+
+    document.querySelectorAll('.seccion-demo')
+    .forEach(sec => sec.classList.remove('active'));
+
+    document.querySelectorAll('.nav-modulo button')
+    .forEach(btn => btn.classList.remove('active'));
+
+    document.getElementById('mod-' + idModulo)
+    .classList.add('active');
+
+    boton.classList.add('active');
+
+}
+
+/* ============================= */
+/* PROMOCIONES Y CUPONES */
+/* ============================= */
+
+let cuponAplicado = false;
+
+function actualizarCarrito() {
+
+    const precio = parseFloat(
+        document.getElementById('select-producto').value
+    );
+
+    const cantidad = Math.max(
+        1,
+        parseInt(document.getElementById('input-cantidad').value) || 1
+    );
+
+    const subtotal = precio * cantidad;
+
+    const total = cuponAplicado
+        ? subtotal * 0.90
+        : subtotal;
+
+    document.getElementById('total-carrito').innerHTML =
+        `Total: ${cuponAplicado
+        ? `<s style="color:#999;">$${subtotal.toFixed(2)}</s> `
+        : ''}<strong>$${total.toFixed(2)} MXN</strong>`;
+
+}
+
+function aplicarCupon() {
+
+    const codigo = document.getElementById('input-cupon')
+    .value.trim().toUpperCase();
+
+    const toast = document.getElementById('toast-cupon');
+
+    cuponAplicado = codigo === 'VALFER10';
+
+    toast.style.display = 'block';
+
+    if(cuponAplicado) {
+
+        toast.style.background = '#d4edda';
+        toast.style.color = '#155724';
+
+        toast.innerText =
+        '¡Cupón VALFER10 aplicado! Recibiste 10% de descuento.';
+
+    } else {
+
+        toast.style.background = '#f8d7da';
+        toast.style.color = '#721c24';
+
+        toast.innerText =
+        'Código incorrecto. Intenta con VALFER10.';
+
+    }
+
+    actualizarCarrito();
+
+}
+
+/* ============================= */
+/* COMENTARIOS Y CALIFICACIONES */
+/* ============================= */
+
+let comentarios = JSON.parse(
+    localStorage.getItem('valfer_comentarios') || '[]'
+);
+
+function mostrarComentarios() {
+
+    const lista = document.getElementById('lista-comentarios');
+
+    lista.innerHTML = '';
+
+    if(comentarios.length === 0) {
+
+        lista.innerHTML =
+        '<p class="sin-comentarios">Aún no hay comentarios. ¡Sé la primera en compartir tu opinión! 💜</p>';
+
+        return;
+
+    }
+
+    comentarios.forEach(com => {
+
+        const div = document.createElement('div');
+
+        div.className = 'comment-item';
+
+        const nombre = document.createElement('strong');
+        nombre.textContent = com.nombre;
+
+        const estrellas = document.createElement('div');
+        estrellas.className = 'estrellas';
+        estrellas.textContent =
+            '★'.repeat(com.calificacion) +
+            '☆'.repeat(5 - com.calificacion);
+
+        const texto = document.createElement('p');
+        texto.textContent = com.texto;
+
+        const fecha = document.createElement('small');
+        fecha.textContent = com.fecha;
+
+        div.append(nombre, estrellas, texto, fecha);
+
+        lista.appendChild(div);
+
+    });
+
+}
+
+function agregarComentario(e) {
+
+    e.preventDefault();
+
+    const nombre = document.getElementById('com-nombre').value.trim();
+
+    const texto = document.getElementById('com-texto').value.trim();
+
+    const calificacion = document.querySelector(
+        'input[name="calificacion"]:checked'
+    );
+
+    if(!calificacion) {
+        alert('Selecciona una calificación.');
+        return;
+    }
+
+    const nuevoComentario = {
+
+        id: Date.now(),
+
+        nombre: nombre,
+
+        texto: texto,
+
+        calificacion: Number(calificacion.value),
+
+        fecha: new Date().toLocaleDateString('es-MX')
+
+    };
+
+    comentarios.unshift(nuevoComentario);
+
+    localStorage.setItem(
+        'valfer_comentarios',
+        JSON.stringify(comentarios)
+    );
+
+    mostrarComentarios();
+
+    document.getElementById('form-comentario').reset();
+
+    const toast = document.getElementById('toast-comentario');
+
+    toast.style.display = 'block';
+
+    toast.innerText = '¡Gracias por compartir tu opinión! 💜';
+
+}
+
+/* ============================= */
+/* PUBLICACIONES */
+/* ============================= */
+
+let misPublicaciones = JSON.parse(
+    localStorage.getItem('valfer_publicaciones') || '[]'
+);
+
+function guardarPublicaciones() {
+
+    localStorage.setItem(
+        'valfer_publicaciones',
+        JSON.stringify(misPublicaciones)
+    );
+
+}
+
+function renderMisPublicaciones() {
+
+    const contenedor = document.getElementById(
+        'grid-mis-publicaciones'
+    );
+
+    contenedor.innerHTML = '';
+
+    if(misPublicaciones.length === 0) {
+
+        contenedor.innerHTML =
+        '<p>No tienes publicaciones todavía. 💜</p>';
+
+        return;
+
+    }
+
+    misPublicaciones.forEach(item => {
+
+        const el = document.createElement('div');
+
+        el.className = 'item-c2c';
+
+        const titulo = document.createElement('h4');
+        titulo.textContent = item.titulo;
+
+        const precio = document.createElement('p');
+        precio.style.color = '#8207DB';
+        precio.style.fontWeight = 'bold';
+        precio.textContent = '$' + Number(item.precio).toFixed(2) + ' MXN';
+
+        const descripcion = document.createElement('p');
+        descripcion.textContent = item.desc;
+
+        if(item.foto) {
+
+            const imagen = document.createElement('img');
+            imagen.src = item.foto;
+            imagen.alt = item.titulo;
+            el.appendChild(imagen);
+
+        }
+
+        const eliminar = document.createElement('button');
+
+        eliminar.className = 'btn btn-secondary';
+
+        eliminar.textContent = '🗑️ Eliminar';
+
+        eliminar.onclick = () => eliminarPublicacion(item.id);
+
+        el.append(titulo, precio, descripcion, eliminar);
+
+        contenedor.appendChild(el);
+
+    });
+
+}
+
+function publicarC2C(e) {
+
+    e.preventDefault();
+
+    const titulo = document.getElementById('c2c-titulo').value.trim();
+
+    const precio = Number(document.getElementById('c2c-precio').value);
+
+    const desc = document.getElementById('c2c-desc').value.trim();
+
+    const archivo = document.getElementById('c2c-foto').files[0];
+
+    const guardar = (foto = '') => {
+
+        const nuevoItem = {
+
+            id: Date.now(),
+
+            titulo: titulo,
+
+            precio: precio,
+
+            desc: desc,
+
+            foto: foto
+
+        };
+
+        misPublicaciones.unshift(nuevoItem);
+
+        guardarPublicaciones();
+
+        renderMisPublicaciones();
+
+        document.getElementById('form-c2c').reset();
+
+        const toast = document.getElementById('toast-c2c');
+
+        toast.style.display = 'block';
+
+        toast.innerText = '¡Tu producto se publicó correctamente! 💜';
+
+    };
+
+    if(archivo) {
+
+        if(!archivo.type.startsWith('image/')) {
+            alert('Selecciona una imagen válida.');
+            return;
+        }
+
+        if(archivo.size > 2 * 1024 * 1024) {
+            alert('La imagen debe pesar menos de 2 MB.');
+            return;
+        }
+
+        const lector = new FileReader();
+
+        lector.onload = () => guardar(lector.result);
+
+        lector.onerror = () => alert('No se pudo leer la imagen.');
+
+        lector.readAsDataURL(archivo);
+
+    } else {
+
+        guardar();
+
+    }
+
+}
+
+function eliminarPublicacion(id) {
+
+    misPublicaciones = misPublicaciones.filter(
+        item => item.id !== id
+    );
+
+    guardarPublicaciones();
+
+    renderMisPublicaciones();
+
+}
+
+/* ============================= */
+/* SUBASTA */
+/* ============================= */
+
+let ofertaActual = 320;
+
+function hacerOferta() {
+
+    const input = document.getElementById('input-oferta');
+
+    const monto = Number(input.value);
+
+    const toast = document.getElementById('toast-subasta');
+
+    toast.style.display = 'block';
+
+    if(!monto || monto <= ofertaActual) {
+
+        toast.style.background = '#f8d7da';
+        toast.style.color = '#721c24';
+
+        toast.innerText =
+        `Tu oferta debe superar los $${ofertaActual.toFixed(2)} MXN.`;
+
+        return;
+
+    }
+
+    ofertaActual = monto;
+
+    document.getElementById('monto-subasta').innerText =
+    `$${monto.toFixed(2)} MXN`;
+
+    const nuevaOferta = document.createElement('li');
+
+    nuevaOferta.textContent =
+    `Tú ofertaste $${monto.toFixed(2)} MXN`;
+
+    document.getElementById('lista-ofertas')
+    .prepend(nuevaOferta);
+
+    toast.style.background = '#d4edda';
+    toast.style.color = '#155724';
+
+    toast.innerText = '¡Tu oferta se registró correctamente!';
+
+    input.value = '';
+
+}
+
+/* ============================= */
+/* TEMPORIZADOR */
+/* ============================= */
+
+let tiempo = 299;
+
+const intervaloSubasta = setInterval(() => {
+
+    if(tiempo <= 0) {
+
+        clearInterval(intervaloSubasta);
+
+        document.getElementById('auction-timer').innerText =
+        '¡SUBASTA FINALIZADA!';
+
+        return;
+
+    }
+
+    tiempo--;
+
+    const min = String(Math.floor(tiempo / 60)).padStart(2, '0');
+
+    const sec = String(tiempo % 60).padStart(2, '0');
+
+    document.getElementById('auction-timer').innerText =
+    `${min}:${sec}`;
+
+}, 1000);
+
+/* ============================= */
+/* INICIALIZACIÓN */
+/* ============================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    actualizarCarrito();
+
+    mostrarComentarios();
+
+    renderMisPublicaciones();
+
+});
+
+</script>
+
+</body>
+</html>
