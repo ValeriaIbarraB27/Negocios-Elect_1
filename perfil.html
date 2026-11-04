@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi perfil | ValFer Cosmetic</title>
     <link rel="stylesheet" href="estilos.css">
+<style>
+.mis-comentarios{margin-top:28px;text-align:left;border-top:1px solid #eee;padding-top:22px}
+.mis-comentarios h2{color:var(--morado,#9f37c4);text-align:center;margin-bottom:10px}
+.comentario-perfil{background:#faf5ff;border:1px solid #ead7f5;border-radius:13px;padding:15px;margin:12px 0}
+.estrellas{color:#e5a400;letter-spacing:2px;font-size:1.15rem}
+.comentario-perfil small{color:#777}
+</style>
 </head>
 
 <body>
@@ -25,27 +32,31 @@
                 👤
             </div>
 
-            <p class="texto-login">
+            <p id="saludoPerfil" class="texto-login">
                 Aquí puedes modificar tus datos.
             </p>
 
             <!-- Formulario de datos -->
             <label>Nombre</label>
-            <input type="text" placeholder="Tu nombre">
+            <input id="perfilNombre" type="text" placeholder="Tu nombre">
 
             <label>Correo electrónico</label>
-            <input type="email" placeholder="Tu correo">
+            <input id="perfilCorreo" type="email" placeholder="Tu correo" readonly>
 
             <label>Teléfono</label>
-            <input type="tel" placeholder="Tu teléfono">
+            <input id="perfilTelefono" type="tel" placeholder="Tu teléfono">
 
             <label>Dirección</label>
-            <input type="text" placeholder="Tu dirección">
+            <input id="perfilDireccion" type="text" placeholder="Tu dirección">
 
             <!-- Botón Guardar -->
-            <a href="perfil.html" class="boton">
-                💾 Guardar cambios
-            </a>
+            <button type="button" class="boton" onclick="guardarPerfil()">💾 Guardar cambios</button>
+
+            <section class="mis-comentarios">
+                <h2>💬 Mis comentarios</h2>
+                <p class="texto-login">Aquí aparecen las opiniones que has publicado en ValFer Cosmetic.</p>
+                <div id="comentariosPerfil"></div>
+            </section>
 
             <!-- Botones de Acción -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
@@ -60,9 +71,7 @@
             </a>
 
             <!-- Cerrar sesión -->
-            <a href="login.html" class="boton-secundario">
-                🚪 Cerrar sesión
-            </a>
+            <button type="button" class="boton-secundario" onclick="cerrarSesion()">🚪 Cerrar sesión</button>
 
         </section>
     </main>
@@ -76,23 +85,34 @@
         </div>
     </div>
 
-    <!-- Scripts de la funcionalidad -->
     <script>
-        function mostrarAlerta(mensaje, titulo = 'Aviso', accion = null) {
-            document.getElementById('alertTitulo').innerText = titulo;
-            document.getElementById('alertMensaje').innerText = mensaje;
-            document.getElementById('customAlert').style.display = 'flex';
-            window.accionPostAlerta = accion;
-        }
-
-        function cerrarAlerta() {
-            document.getElementById('customAlert').style.display = 'none';
-            if (window.accionPostAlerta) {
-                window.accionPostAlerta();
-                window.accionPostAlerta = null;
-            }
-        }
-    </script>
-
+function obtenerUsuario(){try{return JSON.parse(localStorage.getItem('valferUsuarioActual')||'null')}catch(e){return null}}
+function guardarPerfil(){
+ const u=obtenerUsuario(); if(!u){alert('Inicia sesión para modificar tu perfil.');location.href='login.html';return;}
+ u.nombre=document.getElementById('perfilNombre').value.trim()||u.nombre;
+ u.telefono=document.getElementById('perfilTelefono').value.trim();
+ u.direccion=document.getElementById('perfilDireccion').value.trim();
+ localStorage.setItem('valferUsuarioActual',JSON.stringify(u));
+ const usuarios=JSON.parse(localStorage.getItem('valferUsuarios')||'{}');
+ if(usuarios[u.correo]){usuarios[u.correo].nombre=u.nombre;usuarios[u.correo].telefono=u.telefono;usuarios[u.correo].direccion=u.direccion;localStorage.setItem('valferUsuarios',JSON.stringify(usuarios));}
+ document.getElementById('saludoPerfil').textContent='¡Hola, '+u.nombre+'! Aquí puedes modificar tus datos.';
+ alert('Tus datos se guardaron correctamente.');
+}
+function cargarMisComentarios(){
+ const u=obtenerUsuario(), cont=document.getElementById('comentariosPerfil');
+ const comentarios=JSON.parse(localStorage.getItem('valferComentarios')||'[]');
+ if(!u){cont.innerHTML='<p>Inicia sesión para consultar tus comentarios.</p>';return;}
+ const propios=comentarios.filter(c=>c.correo===u.correo);
+ if(!propios.length){cont.innerHTML='<p>Aún no has publicado comentarios. <a href="comunidad.html">Comparte tu opinión aquí.</a></p>';return;}
+ cont.innerHTML=propios.slice().reverse().map(c=>`<article class="comentario-perfil"><strong>${escapeHTML(c.nombre)}</strong><div class="estrellas">${'★'.repeat(c.calificacion)}${'☆'.repeat(5-c.calificacion)}</div><p>${escapeHTML(c.texto)}</p><small>${new Date(c.fecha).toLocaleString('es-MX')}</small></article>`).join('');
+}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function cerrarSesion(){localStorage.removeItem('valferUsuarioActual');location.href='index.html';}
+window.addEventListener('DOMContentLoaded',()=>{
+ const u=obtenerUsuario();
+ if(u){document.getElementById('perfilNombre').value=u.nombre||'';document.getElementById('perfilCorreo').value=u.correo||'';document.getElementById('perfilTelefono').value=u.telefono||'';document.getElementById('perfilDireccion').value=u.direccion||'';document.getElementById('saludoPerfil').textContent='¡Hola, '+u.nombre+'! Aquí puedes modificar tus datos.';}
+ cargarMisComentarios();
+});
+</script>
 </body>
 </html>
