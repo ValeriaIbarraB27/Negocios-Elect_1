@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comunidad y opiniones | ValFer Cosmetic</title>
+<link rel="stylesheet" href="estilos.css">
+<style>
+.comunidad{max-width:900px;margin:45px auto;padding:25px}
+.comunidad-card{background:#fff;padding:28px;border-radius:20px;box-shadow:0 5px 20px #00000012;margin-bottom:25px}
+.comunidad-card h2{color:var(--morado);margin-bottom:12px}
+.comunidad-card label{display:block;text-align:left;font-weight:bold;margin-top:12px}
+.comunidad-card textarea,.comunidad-card select{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;margin:8px 0}
+.opinion{background:#faf5ff;border:1px solid #ead7f5;padding:18px;border-radius:15px;margin:15px 0;text-align:left}
+.opinion .stars{color:#e5a400;font-size:1.2rem;letter-spacing:2px}
+.opinion small{color:#777}
+.nota{font-size:.92rem;color:#6b5875}
+</style>
+</head>
+<body>
+<header>
+<a href="index.html"><img src="img/valfer logo.jpeg" class="mini-logo" alt="ValFer Cosmetic"></a>
+<nav>
+<a href="index.html">Inicio</a><a href="sobre.html">Sobre nosotros</a><a href="catalogo.html">Catálogo</a>
+<a href="comunidad.html">Opiniones</a><a href="perfil.html">Perfil</a>
+</nav>
+</header>
+<main class="comunidad">
+<section class="comunidad-card">
+<h2>💜 Comunidad ValFer Cosmetic</h2>
+<p>Tu opinión nos ayuda a seguir creciendo. Cuéntanos cómo fue tu experiencia con nuestros cosméticos, regalos y detallitos personalizados.</p>
+<form id="formComentario">
+<label for="calificacion">Califica tu experiencia</label>
+<select id="calificacion" required>
+<option value="">Selecciona una calificación</option>
+<option value="5">★★★★★ — Excelente</option>
+<option value="4">★★★★☆ — Muy buena</option>
+<option value="3">★★★☆☆ — Buena</option>
+<option value="2">★★☆☆☆ — Puede mejorar</option>
+<option value="1">★☆☆☆☆ — Mala</option>
+</select>
+<label for="textoComentario">Tu comentario</label>
+<textarea id="textoComentario" rows="4" maxlength="600" required placeholder="Escribe aquí tu opinión..."></textarea>
+<button class="btn" type="submit">Publicar comentario</button>
+<p class="nota">Para publicar necesitas iniciar sesión. Tus comentarios quedarán guardados en tu perfil.</p>
+</form>
+</section>
+<section class="comunidad-card">
+<h2>✨ Comentarios de nuestra comunidad</h2>
+<div id="listaComentarios"><p>Aún no hay comentarios. ¡Sé la primera persona en compartir su experiencia!</p></div>
+</section>
+</main>
+<footer><p>© 2026 ValFer Cosméticos y Regalos</p><p>Detalles y belleza siempre pensados con amor hacia ti 🥰</p></footer>
+<script>
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function getUser(){try{return JSON.parse(localStorage.getItem('valferUsuarioActual')||'null')}catch(e){return null}}
+function renderComentarios(){
+ const lista=JSON.parse(localStorage.getItem('valferComentarios')||'[]');
+ const cont=document.getElementById('listaComentarios');
+ if(!lista.length){cont.innerHTML='<p>Aún no hay comentarios. ¡Sé la primera persona en compartir su experiencia!</p>';return;}
+ cont.innerHTML=lista.slice().reverse().map(c=>`<article class="opinion"><strong>${esc(c.nombre)}</strong><div class="stars" aria-label="${c.calificacion} de 5 estrellas">${'★'.repeat(c.calificacion)}${'☆'.repeat(5-c.calificacion)}</div><p>${esc(c.texto)}</p><small>${new Date(c.fecha).toLocaleString('es-MX')}</small></article>`).join('');
+}
+document.getElementById('formComentario').addEventListener('submit',function(e){
+ e.preventDefault();
+ const usuario=getUser();
+ if(!usuario){alert('Inicia sesión o crea una cuenta para publicar tu comentario.');location.href='login.html';return;}
+ const texto=document.getElementById('textoComentario').value.trim();
+ const calificacion=Number(document.getElementById('calificacion').value);
+ if(!texto||calificacion<1||calificacion>5)return;
+ const comentarios=JSON.parse(localStorage.getItem('valferComentarios')||'[]');
+ comentarios.push({id:Date.now(),nombre:usuario.nombre,correo:usuario.correo,texto,calificacion,fecha:new Date().toISOString()});
+ localStorage.setItem('valferComentarios',JSON.stringify(comentarios));
+ this.reset();renderComentarios();alert('¡Gracias! Tu comentario se publicó y ya aparece en tu perfil.');
+});
+renderComentarios();
+</script>
+</body>
+</html>
