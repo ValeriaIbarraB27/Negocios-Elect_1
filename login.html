@@ -31,71 +31,79 @@
                 ¡Qué bonito tenerte de vuelta! ✨
             </p>
 
+            <!-- ENVOLVEMOS EN UN FORMULARIO -->
+            <form id="form-login" onsubmit="procesarInicioSesion(event)">
 
-            <!-- Correo -->
+                <!-- Correo -->
+                <label for="correo">
+                    Correo electrónico
+                </label>
 
-            <label for="correo">
-                Correo electrónico
-            </label>
+                <input
+                    type="email"
+                    id="correo"
+                    placeholder="ejemplo@gmail.com"
+                    required
+                >
 
-            <input
-                type="email"
-                id="correo"
-                placeholder="ejemplo@gmail.com"
-            >
+                <!-- Contraseña -->
+                <label for="password">
+                    Contraseña
+                </label>
 
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Escribe tu contraseña"
+                    required
+                >
 
-            <!-- Contraseña -->
+                <!-- BOTÓN TIPO SUBMIT -->
+                <button type="submit" class="boton" style="width: 100%; cursor: pointer; border: none;">
+                    Iniciar sesión
+                </button>
 
-            <label for="password">
-                Contraseña
-            </label>
-
-            <input
-                type="password"
-                id="password"
-                placeholder="Escribe tu contraseña"
-            >
-
-
-            <!-- Este enlace lleva al perfil. -->
-
-            <a href="perfil.html" class="boton">
-
-                Iniciar sesión
-
-            </a>
-
+            </form>
 
             <!-- Crear cuenta -->
-
             <div class="separador">
-
                 ¿No tienes una cuenta?
-
             </div>
-
 
             <a
                 href="registro.html"
                 class="boton-secundario">
-
                 Crear una cuenta
-
             </a>
-
 
             <a
                 href="index.html"
                 class="volver">
-
                 ← Regresar al inicio
-
             </a>
 
         </section>
 
     </main>
+
+    <!-- SCRIPT PARA GUARDAR LA SESIÓN Y REDIRIGIR A ESTRATEGIAS -->
+    <script>
+        function procesarInicioSesion(event) {
+            event.preventDefault(); // Evita que se recargue la página inmediatamente
+
+            const correo = document.getElementById('correo').value.trim();
+            
+            // Extraer un nombre de usuario básico a partir del correo (ej: 'valeria' de 'valeria@gmail.com')
+            const nombreUsuario = correo.split('@')[0] || 'Usuario';
+
+            // Guardar las claves de sesión activa en localStorage
+            localStorage.setItem('valfer_sesion_activa', nombreUsuario);
+            localStorage.setItem('valfer_usuario_activo', nombreUsuario);
+
+            // Redirigir a la página de estrategias protegida
+            window.location.href = 'estrategias.html';
+        }
+    </script>
 
 </body>
 

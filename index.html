@@ -1,17 +1,45 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>ValFer Cosmetic</title>
-
     <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Estilos para la barra de usuario activo y protección de secciones */
+        .user-welcome-bar {
+            background: #f1ddff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #351044;
+        }
+        .user-welcome-bar button {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .bloque-restringido {
+            display: none; /* Oculto por defecto hasta iniciar sesión */
+        }
+    </style>
 </head>
 
 <body>
+
+    <!-- BARRA DE USUARIO ACTIVO (Aparece al iniciar sesión) -->
+    <div id="barra-sesion" class="user-welcome-bar" style="display:none;">
+        <span>👋 ¡Hola, <span id="nombre-usuario-activo">Usuario</span>!</span>
+        <button onclick="cerrarSesionIndex()">Cerrar sesión</button>
+    </div>
 
     <!-- ENCABEZADO -->
     <header>
@@ -22,11 +50,20 @@
 
         <nav>
             <a href="index.html">Inicio</a>
-            <a href="contacto.html">Contactanos</a>
+            <a href="contacto.html">Contáctanos</a>
             <a href="sobre.html">Sobre nosotros</a>
             <a href="catalogo.html">Productos</a>
-            <a href="login.html">Iniciar sesión</a>
-            <a href="perfil.html">Perfil</a>
+            
+            <a href="resenas.html">⭐ Reseñas</a>
+            <a href="marketplace.html">🛒 Marketplace</a>
+
+            <!-- ENLACE DE ESTRATEGIAS: Oculto inicialmente, se muestra con la clase 'bloque-restringido' al loguearse -->
+            <a href="estrategias.html" id="enlace-estrategias" class="bloque-restringido" style="color: #ffae00; font-weight: bold;">📊 Estrategias</a>
+
+            <!-- CAMBIA DINÁMICAMENTE SEGÚN EL LOGIN -->
+            <a href="login.html" id="enlace-login">Iniciar sesión</a>
+            <a href="perfil.html" id="enlace-perfil" style="display:none;">Perfil</a>
+            
             <a href="carrito.html">
                 🛒 Carrito
                 <b id="contador">0</b>
@@ -65,6 +102,13 @@
                     Contáctanos o síguenos
                 </a>
 
+                <!-- ACCESO RÁPIDO A ESTRATEGIAS (Solo visible si inició sesión) -->
+                <div id="cta-estrategias" class="bloque-restringido" style="margin-top: 20px;">
+                    <a class="btn" href="estrategias.html" style="background: #8207DB;">
+                        📊 Ir a mi Panel de Estrategias
+                    </a>
+                </div>
+
             </div>
 
         </section>
@@ -78,44 +122,21 @@
             <div class="cards">
 
                 <div class="card">
-
                     <div class="icon">💄</div>
-
                     <h3>Cosméticos</h3>
-
-                    <p>
-                        Productos de belleza y maquillaje
-                        para consentirte.
-                    </p>
-
+                    <p>Productos de belleza y maquillaje para consentirte.</p>
                 </div>
 
-
                 <div class="card">
-
                     <div class="icon">🎁</div>
-
                     <h3>Regalos</h3>
-
-                    <p>
-                        Detalles bonitos para cualquier ocasión.
-                    </p>
-
+                    <p>Detalles bonitos para cualquier ocasión.</p>
                 </div>
 
-
                 <div class="card">
-
                     <div class="icon">✨</div>
-
                     <h3>Detallitos Personalizados</h3>
-
-                    <p>
-                        Productos seleccionados POR TI y con
-                        presentaciones únicas para esa
-                        PERSONITA ESPECIAL.
-                    </p>
-
+                    <p>Productos seleccionados POR TI y con presentaciones únicas para esa PERSONITA ESPECIAL.</p>
                 </div>
 
             </div>
@@ -127,16 +148,44 @@
 
     <!-- PIE DE PÁGINA -->
     <footer>
-
-        <p>
-            © 2026 ValFer Cosméticos y Regalos
-        </p>
-
-        <p>
-            Detalles, Cosméticos y Regalos siempre pensados
-            con AMOR hacia Ti🥰
-        </p>
+        <p>© 2026 ValFer Cosméticos y Regalos</p>
+        <p>Detalles, Cosméticos y Regalos siempre pensados con AMOR hacia Ti🥰</p>
     </footer>
+
+    <!-- SCRIPT DE VALIDACIÓN DE SESIÓN -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Comprueba si el usuario ha iniciado sesión consultando el almacenamiento local
+            const usuarioActivo = localStorage.getItem('valfer_sesion_activa') || localStorage.getItem('valfer_usuario_activo');
+            
+            const barraSesion = document.getElementById('barra-sesion');
+            const spanNombre = document.getElementById('nombre-usuario-activo');
+            const enlaceLogin = document.getElementById('enlace-login');
+            const enlacePerfil = document.getElementById('enlace-perfil');
+            const enlaceEstrategias = document.getElementById('enlace-estrategias');
+            const ctaEstrategias = document.getElementById('cta-estrategias');
+
+            if (usuarioActivo) {
+                // Si hay sesión activa, mostramos los elementos restringidos
+                spanNombre.textContent = usuarioActivo;
+                barraSesion.style.display = 'flex';
+                
+                if (enlaceLogin) enlaceLogin.style.display = 'none';
+                if (enlacePerfil) enlacePerfil.style.display = 'inline-block';
+
+                // REVELAR EL APARTADO DE ESTRATEGIAS
+                if (enlaceEstrategias) enlaceEstrategias.style.display = 'inline-block';
+                if (ctaEstrategias) ctaEstrategias.style.display = 'block';
+            }
+        });
+
+        function cerrarSesionIndex() {
+            // Borra la sesión y recarga la página para bloquear las estrategias de nuevo
+            localStorage.removeItem('valfer_sesion_activa');
+            localStorage.removeItem('valfer_usuario_activo');
+            window.location.reload();
+        }
+    </script>
 
 </body>
 
