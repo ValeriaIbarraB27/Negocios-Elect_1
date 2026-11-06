@@ -35,6 +35,64 @@
             <p id="saludoPerfil" class="texto-login">
                 Aquí puedes modificar tus datos.
             </p>
+            <!-- PEGA ESTE BLOQUE EN perfil.html, dentro del contenido de tu perfil -->
+<section class="card">
+  <h2>💗 Mis reseñas en ValFer Cosmetic</h2>
+  <div id="perfilMisResenas" class="grid-comments"></div>
+</section>
+
+<script>
+function obtenerUsuarioPerfilValFer() {
+  const claves=['valfer_usuario_actual','usuarioActual','usuario','usuarioValFer','usuario_logueado','valferUser'];
+  for(const clave of claves){
+    const valor=localStorage.getItem(clave);
+    if(!valor) continue;
+    try{
+      const dato=JSON.parse(valor);
+      if(typeof dato==='string') return {id:dato,nombre:dato};
+      if(dato && typeof dato==='object'){
+        const id=dato.id??dato.uid??dato.email??dato.correo??dato.usuario??dato.username??'';
+        const nombre=dato.nombre??dato.name??dato.nombreCompleto??dato.username??dato.usuario??dato.email??'';
+        if(id||nombre) return {id:String(id||nombre),nombre:String(nombre||id)};
+      }
+    }catch{return {id:valor,nombre:valor};}
+  }
+  return null;
+}
+
+function mostrarResenasEnPerfilValFer(){
+  const cont=document.getElementById('perfilMisResenas');
+  if(!cont) return;
+  const usuario=obtenerUsuarioPerfilValFer();
+  const comentarios=JSON.parse(localStorage.getItem('valfer_comentarios')||'[]');
+  cont.innerHTML='';
+  if(!usuario){
+    cont.innerHTML='<p class="sin-comentarios">Inicia sesión para consultar tus reseñas. 💜</p>';
+    return;
+  }
+  const id=String(usuario.id||usuario.nombre).trim().toLocaleLowerCase('es-MX');
+  const nombre=String(usuario.nombre||'').trim().toLocaleLowerCase('es-MX');
+  const propias=comentarios.filter(com=>{
+    if(com.usuarioId) return String(com.usuarioId).trim().toLocaleLowerCase('es-MX')===id;
+    return String(com.nombre||'').trim().toLocaleLowerCase('es-MX')===nombre;
+  });
+  if(!propias.length){
+    cont.innerHTML='<p class="sin-comentarios">Aún no has publicado reseñas. Cuando compartas una opinión en Comunidad, aparecerá aquí. 💜</p>';
+    return;
+  }
+  propias.forEach(com=>{
+    const tarjeta=document.createElement('div'); tarjeta.className='comment-item';
+    const autor=document.createElement('strong'); autor.textContent=com.nombre||'Mi reseña';
+    const stars=document.createElement('div'); stars.className='estrellas';
+    const n=Math.min(5,Math.max(0,Number(com.calificacion)||0));
+    stars.textContent='★'.repeat(n)+'☆'.repeat(5-n);
+    const texto=document.createElement('p'); texto.textContent=com.texto||'';
+    const fecha=document.createElement('small'); fecha.textContent=com.fecha||'';
+    tarjeta.append(autor,stars,texto,fecha); cont.appendChild(tarjeta);
+  });
+}
+document.addEventListener('DOMContentLoaded',mostrarResenasEnPerfilValFer);
+</script>
 
             <!-- Formulario de datos -->
             <label>Nombre</label>

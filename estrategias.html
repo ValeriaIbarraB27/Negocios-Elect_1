@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,6 +22,8 @@
     --card-bg: #ffffff;
     --text: #2b1738;
     --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
 }
 
 * {
@@ -240,6 +241,7 @@ h1, h2, h3 {
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
+    display: inline-block;
 }
 
 .btn:hover {
@@ -259,8 +261,30 @@ h1, h2, h3 {
     background: #6c5478;
 }
 
+.btn-warning {
+    background: var(--warning);
+    color: #333;
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+}
+
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 15px;
+}
+
+.acciones-item {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+}
+
 /* ============================= */
-/* COMENTARIOS */
+/* COMENTARIOS Y RESEÑAS */
 /* ============================= */
 
 .grid-comments {
@@ -274,6 +298,7 @@ h1, h2, h3 {
     padding: 18px;
     border-radius: 12px;
     border-left: 5px solid var(--primary);
+    position: relative;
 }
 
 .comment-item strong {
@@ -292,33 +317,33 @@ h1, h2, h3 {
     padding: 20px;
 }
 
-/* Calificación */
+/* Calificación interactiva */
 
-.calificacion {
+.calificacion-estrellas {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
     gap: 5px;
 }
 
-.calificacion input {
+.calificacion-estrellas input {
     display: none;
 }
 
-.calificacion label {
+.calificacion-estrellas label {
     font-size: 30px;
     color: #ccc;
     cursor: pointer;
 }
 
-.calificacion label:hover,
-.calificacion label:hover ~ label,
-.calificacion input:checked ~ label {
+.calificacion-estrellas label:hover,
+.calificacion-estrellas label:hover ~ label,
+.calificacion-estrellas input:checked ~ label {
     color: #ffae00;
 }
 
 /* ============================= */
-/* PUBLICACIONES */
+/* PUBLICACIONES Y MARKETPLACE */
 /* ============================= */
 
 .grid-c2c {
@@ -334,10 +359,15 @@ h1, h2, h3 {
     padding: 18px;
     background: white;
     box-shadow: 0 4px 12px rgba(130,7,219,0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .item-c2c h4 {
     color: var(--primary);
+    margin-top: 0;
+    margin-bottom: 8px;
 }
 
 .item-c2c img {
@@ -345,6 +375,14 @@ h1, h2, h3 {
     height: 150px;
     object-fit: cover;
     border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.usuario-tag {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 /* ============================= */
@@ -376,7 +414,7 @@ h1, h2, h3 {
 }
 
 /* ============================= */
-/* NOTIFICACIONES */
+/* NOTIFICACIONES Y LOGIN */
 /* ============================= */
 
 .alert-toast {
@@ -386,6 +424,17 @@ h1, h2, h3 {
     border-radius: 10px;
     margin-top: 15px;
     display: none;
+}
+
+.login-bar {
+    background: #f1ddff;
+    padding: 12px 18px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 /* ============================= */
@@ -399,7 +448,6 @@ h1, h2, h3 {
 }
 
 @media(max-width: 600px) {
-
     .hero-campaign {
         grid-template-columns: 1fr;
     }
@@ -449,6 +497,14 @@ h1, h2, h3 {
         💬 Comunidad
     </button>
 
+    <button onclick="verModulo('resenas', this)">
+        ⭐ Reseñas
+    </button>
+
+    <button onclick="verModulo('marketplace', this)">
+        🛒 Marketplace
+    </button>
+
     <button onclick="verModulo('c2c-publicar', this)">
         📦 Publicar
     </button>
@@ -488,7 +544,7 @@ h1, h2, h3 {
 
         <div>
             Código:
-            <span class="code-badge">VALFER10</span>
+            <span class="code-badge">VALFER100k</span>
         </div>
 
     </div>
@@ -501,9 +557,7 @@ h1, h2, h3 {
 
             <label>Selecciona un producto:</label>
 
-            <select id="select-producto" class="form-control"
-            onchange="actualizarCarrito()">
-
+            <select id="select-producto" class="form-control" onchange="actualizarCarrito()">
                 <option value="120">Labial Matte - $120</option>
                 <option value="180">Máscara de pestañas - $180</option>
                 <option value="250">Paleta de sombras - $250</option>
@@ -512,7 +566,6 @@ h1, h2, h3 {
                 <option value="130">Delineador - $130</option>
                 <option value="300">Kit de skincare - $300</option>
                 <option value="350">Kit de maquillaje - $350</option>
-
             </select>
 
         </div>
@@ -521,22 +574,15 @@ h1, h2, h3 {
 
             <label>Cantidad:</label>
 
-            <input type="number" id="input-cantidad"
-            class="form-control" value="1" min="1"
-            style="max-width:150px;"
-            onchange="actualizarCarrito()">
+            <input type="number" id="input-cantidad" class="form-control" value="1" min="1" style="max-width:150px;" onchange="actualizarCarrito()">
 
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
 
-            <input type="text" id="input-cupon"
-            class="form-control"
-            placeholder="Código VALFER10"
-            style="max-width:250px;">
+            <input type="text" id="input-cupon" class="form-control" placeholder="Código VALFER10" style="max-width:250px;">
 
-            <button class="btn btn-accent"
-            onclick="aplicarCupon()">
+            <button class="btn btn-accent" onclick="aplicarCupon()">
                 Aplicar cupón
             </button>
 
@@ -574,8 +620,7 @@ h1, h2, h3 {
                 para consentirte.
             </p>
 
-            <button class="btn"
-            onclick="location.href='catalogo.html'">
+            <button class="btn" onclick="location.href='catalogo.html'">
                 💄 Comprar ahora
             </button>
 
@@ -583,10 +628,7 @@ h1, h2, h3 {
 
         <div>
 
-            <img
-            src="img/kit-maquillaje.jpg"
-            alt="Kit de maquillaje ValFer"
-            onerror="this.src='https://placehold.co/500x350/f1ddff/8207DB?text=ValFer+Cosmetic'">
+            <img src="img/kit-maquillaje.jpg" alt="Kit de maquillaje ValFer" onerror="this.src='https://placehold.co/500x350/f1ddff/8207DB?text=ValFer+Cosmetic'">
 
         </div>
 
@@ -599,29 +641,15 @@ h1, h2, h3 {
         <div class="grid-comments">
 
             <div class="comment-item">
-
                 <strong>Mariana R.</strong>
-
                 <div class="estrellas">★★★★★</div>
-
-                <p>
-                    ¡Me encantaron los productos!
-                    Todo llegó en excelentes condiciones.
-                </p>
-
+                <p>¡Me encantaron los productos! Todo llegó en excelentes condiciones.</p>
             </div>
 
             <div class="comment-item">
-
                 <strong>Andrea P.</strong>
-
                 <div class="estrellas">★★★★★</div>
-
-                <p>
-                    Los productos son hermosos y
-                    la atención es excelente.
-                </p>
-
+                <p>Los productos son hermosos y la atención es excelente.</p>
             </div>
 
         </div>
@@ -642,67 +670,27 @@ h1, h2, h3 {
 
         <p>
             Tu opinión es muy importante para nosotros.
-            Comparte tu experiencia y califica nuestros productos.
+            Comparte tus comentarios y experiencias con la comunidad.
         </p>
 
-        <form id="form-comentario"
-        onsubmit="agregarComentario(event)">
+        <form id="form-comentario" onsubmit="agregarComentario(event)">
+            <input type="hidden" id="comentario-id-edit">
 
             <div class="form-group">
-
-                <label>Tu nombre:</label>
-
-                <input type="text" id="com-nombre"
-                class="form-control"
-                required
-                placeholder="Ej. Sofia López">
-
+                <label>Nombre de usuario:</label>
+                <input type="text" id="com-nombre" class="form-control" required placeholder="Ej. @SofiaLopez">
             </div>
 
             <div class="form-group">
-
-                <label>Tu calificación:</label>
-
-                <div class="calificacion">
-
-                    <input type="radio" id="estrella5"
-                    name="calificacion" value="5" required>
-                    <label for="estrella5">★</label>
-
-                    <input type="radio" id="estrella4"
-                    name="calificacion" value="4">
-                    <label for="estrella4">★</label>
-
-                    <input type="radio" id="estrella3"
-                    name="calificacion" value="3">
-                    <label for="estrella3">★</label>
-
-                    <input type="radio" id="estrella2"
-                    name="calificacion" value="2">
-                    <label for="estrella2">★</label>
-
-                    <input type="radio" id="estrella1"
-                    name="calificacion" value="1">
-                    <label for="estrella1">★</label>
-
-                </div>
-
+                <label>Comentario:</label>
+                <textarea id="com-texto" class="form-control" rows="4" required placeholder="Escribe tu comentario..."></textarea>
             </div>
 
-            <div class="form-group">
-
-                <label>Tu comentario:</label>
-
-                <textarea id="com-texto"
-                class="form-control"
-                rows="4"
-                required
-                placeholder="Cuéntanos tu experiencia..."></textarea>
-
-            </div>
-
-            <button type="submit" class="btn">
+            <button type="submit" id="btn-guardar-comentario" class="btn">
                 💜 Publicar comentario
+            </button>
+            <button type="button" id="btn-cancelar-edit-comentario" class="btn btn-secondary" style="display:none;" onclick="cancelarEdicionComentario()">
+                Cancelar
             </button>
 
         </form>
@@ -711,16 +699,101 @@ h1, h2, h3 {
 
         <h3>Comentarios recientes</h3>
 
-        <div id="lista-comentarios" class="grid-comments">
-
-        </div>
+        <div id="lista-comentarios" class="grid-comments"></div>
 
     </div>
 
 </section>
 
 <!-- ============================= -->
-<!-- 4. PUBLICAR PRODUCTOS -->
+<!-- 4. APARTADO DE RESEÑAS -->
+<!-- ============================= -->
+
+<section id="mod-resenas" class="seccion-demo">
+
+    <!-- LOGIN SIMULADO -->
+    <div class="card login-bar">
+        <strong>👤 Sesión de Usuario:</strong>
+        <span id="user-display">Invitado</span>
+        <input type="text" id="input-username" class="form-control" placeholder="Ingresa tu usuario" style="max-width:200px;">
+        <button class="btn btn-sm" onclick="loginUsuario()">Ingresar / Cambiar</button>
+    </div>
+
+    <!-- TUS RESEÑAS -->
+    <div class="card">
+        <h2>⭐ Mis Reseñas</h2>
+        <p>Califica tu experiencia con el producto y revisa tus publicaciones previas.</p>
+
+        <form id="form-resena" onsubmit="guardarResena(event)">
+            <input type="hidden" id="resena-id-edit">
+
+            <div class="form-group">
+                <label>Producto o Servicio:</label>
+                <input type="text" id="resena-producto" class="form-control" required placeholder="Ej. Labial Matte / Atención al cliente">
+            </div>
+
+            <div class="form-group">
+                <label>Califica tu experiencia:</label>
+                <div class="calificacion-estrellas">
+                    <input type="radio" id="res-est5" name="res-calif" value="5" required>
+                    <label for="res-est5">★</label>
+                    <input type="radio" id="res-est4" name="res-calif" value="4">
+                    <label for="res-est4">★</label>
+                    <input type="radio" id="res-est3" name="res-calif" value="3">
+                    <label for="res-est3">★</label>
+                    <input type="radio" id="res-est2" name="res-calif" value="2">
+                    <label for="res-est2">★</label>
+                    <input type="radio" id="res-est1" name="res-calif" value="1">
+                    <label for="res-est1">★</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Reseña / Comentario:</label>
+                <textarea id="resena-texto" class="form-control" rows="3" required placeholder="Cuéntanos los detalles de tu experiencia..."></textarea>
+            </div>
+
+            <button type="submit" id="btn-guardar-resena" class="btn btn-accent">
+                ⭐ Publicar Reseña
+            </button>
+            <button type="button" id="btn-cancelar-resena" class="btn btn-secondary" style="display:none;" onclick="cancelarEdicionResena()">
+                Cancelar
+            </button>
+        </form>
+
+        <div id="toast-resena" class="alert-toast"></div>
+
+        <h3>Mis reseñas publicadas</h3>
+        <div id="lista-mis-resenas" class="grid-comments"></div>
+    </div>
+
+    <!-- RESEÑAS DE OTROS USUARIOS -->
+    <div class="card">
+        <h2>🌟 Reseñas de otros usuarios</h2>
+        <p>Descubre lo que opinan otros miembros de la comunidad.</p>
+
+        <div id="lista-otras-resenas" class="grid-comments"></div>
+    </div>
+
+</section>
+
+<!-- ============================= -->
+<!-- 5. MINI MARKETPLACE -->
+<!-- ============================= -->
+
+<section id="mod-marketplace" class="seccion-demo">
+
+    <div class="card">
+        <h2>🛒 Mini Marketplace</h2>
+        <p>Explora todos los productos publicados por nuestra comunidad.</p>
+
+        <div id="grid-marketplace" class="grid-c2c"></div>
+    </div>
+
+</section>
+
+<!-- ============================= -->
+<!-- 6. PUBLICAR PRODUCTOS -->
 <!-- ============================= -->
 
 <section id="mod-c2c-publicar" class="seccion-demo">
@@ -735,54 +808,33 @@ h1, h2, h3 {
         </p>
 
         <form id="form-c2c" onsubmit="publicarC2C(event)">
+            <input type="hidden" id="prod-id-edit">
 
             <div class="form-group">
-
                 <label>Nombre del producto:</label>
-
-                <input type="text" id="c2c-titulo"
-                class="form-control"
-                required
-                placeholder="Ej. Paleta de sombras">
-
+                <input type="text" id="c2c-titulo" class="form-control" required placeholder="Ej. Paleta de sombras">
             </div>
 
             <div class="form-group">
-
                 <label>Precio ($ MXN):</label>
-
-                <input type="number" id="c2c-precio"
-                class="form-control"
-                required min="1"
-                placeholder="250">
-
+                <input type="number" id="c2c-precio" class="form-control" required min="1" placeholder="250">
             </div>
 
             <div class="form-group">
-
                 <label>Descripción:</label>
-
-                <textarea id="c2c-desc"
-                class="form-control"
-                rows="3"
-                required
-                placeholder="Describe tu producto..."></textarea>
-
+                <textarea id="c2c-desc" class="form-control" rows="3" required placeholder="Describe tu producto..."></textarea>
             </div>
 
             <div class="form-group">
-
                 <label>Imagen del producto:</label>
-
-                <input type="file" id="c2c-foto"
-                accept="image/*"
-                class="form-control">
-
+                <input type="file" id="c2c-foto" accept="image/*" class="form-control">
             </div>
 
-            <button type="submit" class="btn btn-accent"
-            style="width:100%;">
+            <button type="submit" id="btn-guardar-prod" class="btn btn-accent" style="width:100%;">
                 Publicar producto
+            </button>
+            <button type="button" id="btn-cancelar-prod" class="btn btn-secondary" style="width:100%; margin-top:5px; display:none;" onclick="cancelarEdicionProducto()">
+                Cancelar edición
             </button>
 
         </form>
@@ -794,7 +846,7 @@ h1, h2, h3 {
 </section>
 
 <!-- ============================= -->
-<!-- 5. MIS PUBLICACIONES -->
+<!-- 7. MIS PUBLICACIONES -->
 <!-- ============================= -->
 
 <section id="mod-c2c-mis-items" class="seccion-demo">
@@ -808,22 +860,19 @@ h1, h2, h3 {
             tus publicaciones.
         </p>
 
-        <div id="grid-mis-publicaciones" class="grid-c2c">
-
-        </div>
+        <div id="grid-mis-publicaciones" class="grid-c2c"></div>
 
     </div>
 
 </section>
 
 <!-- ============================= -->
-<!-- 6. SUBASTA -->
+<!-- 8. SUBASTA -->
 <!-- ============================= -->
 
 <section id="mod-subasta" class="seccion-demo">
 
-    <div class="card auction-box"
-    style="max-width:600px;margin:auto;">
+    <div class="card auction-box" style="max-width:600px;margin:auto;">
 
         <span class="etiqueta-destacada">
             🎀 SUBASTA ESPECIAL
@@ -831,11 +880,7 @@ h1, h2, h3 {
 
         <h2>Kit de maquillaje de colección</h2>
 
-        <img
-        src="img/kit-maquillaje.jpg"
-        alt="Kit de maquillaje"
-        style="width:180px;height:180px;object-fit:cover;border-radius:15px;"
-        onerror="this.src='https://placehold.co/180x180/f1ddff/8207DB?text=Kit+Beauty'">
+        <img src="img/kit-maquillaje.jpg" alt="Kit de maquillaje" style="width:180px;height:180px;object-fit:cover;border-radius:15px;" onerror="this.src='https://placehold.co/180x180/f1ddff/8207DB?text=Kit+Beauty'">
 
         <div class="timer" id="auction-timer">
             04:59
@@ -843,23 +888,16 @@ h1, h2, h3 {
 
         <p>
             Oferta más alta actual:
-            <strong id="monto-subasta"
-            style="color:var(--primary);font-size:1.3rem;">
+            <strong id="monto-subasta" style="color:var(--primary);font-size:1.3rem;">
                 $320.00 MXN
             </strong>
         </p>
 
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
 
-            <input type="number"
-            id="input-oferta"
-            class="form-control"
-            style="width:150px;"
-            placeholder="Tu oferta"
-            min="321">
+            <input type="number" id="input-oferta" class="form-control" style="width:150px;" placeholder="Tu oferta" min="321">
 
-            <button class="btn btn-accent"
-            onclick="hacerOferta()">
+            <button class="btn btn-accent" onclick="hacerOferta()">
                 Ofertar
             </button>
 
@@ -872,11 +910,8 @@ h1, h2, h3 {
             <strong>Historial de ofertas:</strong>
 
             <ul id="lista-ofertas">
-
                 <li>Cliente A ofertó $320.00 MXN</li>
-
                 <li>Cliente B ofertó $300.00 MXN</li>
-
             </ul>
 
         </div>
@@ -894,18 +929,30 @@ h1, h2, h3 {
 /* ============================= */
 
 function verModulo(idModulo, boton) {
+    document.querySelectorAll('.seccion-demo').forEach(sec => sec.classList.remove('active'));
+    document.querySelectorAll('.nav-modulo button').forEach(btn => btn.classList.remove('active'));
 
-    document.querySelectorAll('.seccion-demo')
-    .forEach(sec => sec.classList.remove('active'));
+    document.getElementById('mod-' + idModulo).classList.add('active');
+    if(boton) boton.classList.add('active');
+}
 
-    document.querySelectorAll('.nav-modulo button')
-    .forEach(btn => btn.classList.remove('active'));
+/* ============================= */
+/* SESIÓN DE USUARIO */
+/* ============================= */
 
-    document.getElementById('mod-' + idModulo)
-    .classList.add('active');
+let usuarioActual = localStorage.getItem('valfer_usuario_activo') || 'UsuarioDemo';
 
-    boton.classList.add('active');
-
+function loginUsuario() {
+    const input = document.getElementById('input-username').value.trim();
+    if(input) {
+        usuarioActual = input;
+        localStorage.setItem('valfer_usuario_activo', usuarioActual);
+        document.getElementById('user-display').innerText = usuarioActual;
+        document.getElementById('input-username').value = '';
+        renderResenas();
+    } else {
+        alert('Por favor ingresa un nombre de usuario válido.');
+    }
 }
 
 /* ============================= */
@@ -915,322 +962,425 @@ function verModulo(idModulo, boton) {
 let cuponAplicado = false;
 
 function actualizarCarrito() {
-
-    const precio = parseFloat(
-        document.getElementById('select-producto').value
-    );
-
-    const cantidad = Math.max(
-        1,
-        parseInt(document.getElementById('input-cantidad').value) || 1
-    );
-
+    const precio = parseFloat(document.getElementById('select-producto').value);
+    const cantidad = Math.max(1, parseInt(document.getElementById('input-cantidad').value) || 1);
     const subtotal = precio * cantidad;
-
-    const total = cuponAplicado
-        ? subtotal * 0.90
-        : subtotal;
+    const total = cuponAplicado ? subtotal * 0.90 : subtotal;
 
     document.getElementById('total-carrito').innerHTML =
-        `Total: ${cuponAplicado
-        ? `<s style="color:#999;">$${subtotal.toFixed(2)}</s> `
-        : ''}<strong>$${total.toFixed(2)} MXN</strong>`;
-
+        `Total: ${cuponAplicado ? `<s style="color:#999;">$${subtotal.toFixed(2)}</s> ` : ''}<strong>$${total.toFixed(2)} MXN</strong>`;
 }
 
 function aplicarCupon() {
-
-    const codigo = document.getElementById('input-cupon')
-    .value.trim().toUpperCase();
-
+    const codigo = document.getElementById('input-cupon').value.trim().toUpperCase();
     const toast = document.getElementById('toast-cupon');
 
-    cuponAplicado = codigo === 'VALFER10';
-
+    cuponAplicado = (codigo === 'VALFER10');
     toast.style.display = 'block';
 
     if(cuponAplicado) {
-
         toast.style.background = '#d4edda';
         toast.style.color = '#155724';
-
-        toast.innerText =
-        '¡Cupón VALFER10 aplicado! Recibiste 10% de descuento.';
-
+        toast.innerText = '¡Cupón VALFER10 aplicado! Recibiste 10% de descuento.';
     } else {
-
         toast.style.background = '#f8d7da';
         toast.style.color = '#721c24';
-
-        toast.innerText =
-        'Código incorrecto. Intenta con VALFER10.';
-
+        toast.innerText = 'Código incorrecto. Intenta con VALFER10.';
     }
-
     actualizarCarrito();
-
 }
 
 /* ============================= */
-/* COMENTARIOS Y CALIFICACIONES */
+/* COMUNIDAD (Solo Usuario y Comentario) */
 /* ============================= */
 
-let comentarios = JSON.parse(
-    localStorage.getItem('valfer_comentarios') || '[]'
-);
+let comentarios = JSON.parse(localStorage.getItem('valfer_comentarios') || '[]');
 
 function mostrarComentarios() {
-
     const lista = document.getElementById('lista-comentarios');
-
     lista.innerHTML = '';
 
     if(comentarios.length === 0) {
-
-        lista.innerHTML =
-        '<p class="sin-comentarios">Aún no hay comentarios. ¡Sé la primera en compartir tu opinión! 💜</p>';
-
+        lista.innerHTML = '<p class="sin-comentarios">Aún no hay comentarios. ¡Sé el primero en compartir tu opinión! 💜</p>';
         return;
-
     }
 
     comentarios.forEach(com => {
-
         const div = document.createElement('div');
-
         div.className = 'comment-item';
 
         const nombre = document.createElement('strong');
         nombre.textContent = com.nombre;
 
-        const estrellas = document.createElement('div');
-        estrellas.className = 'estrellas';
-        estrellas.textContent =
-            '★'.repeat(com.calificacion) +
-            '☆'.repeat(5 - com.calificacion);
-
         const texto = document.createElement('p');
         texto.textContent = com.texto;
 
         const fecha = document.createElement('small');
+        fecha.style.display = 'block';
+        fecha.style.color = '#888';
         fecha.textContent = com.fecha;
 
-        div.append(nombre, estrellas, texto, fecha);
+        const acciones = document.createElement('div');
+        acciones.className = 'acciones-item';
+        acciones.innerHTML = `
+            <button class="btn btn-warning btn-sm" onclick="editarComentario(${com.id})">✏️ Editar</button>
+            <button class="btn btn-danger btn-sm" onclick="eliminarComentario(${com.id})">🗑️ Eliminar</button>
+        `;
 
+        div.append(nombre, texto, fecha, acciones);
         lista.appendChild(div);
-
     });
-
 }
 
 function agregarComentario(e) {
-
     e.preventDefault();
-
+    const idEdit = document.getElementById('comentario-id-edit').value;
     const nombre = document.getElementById('com-nombre').value.trim();
-
     const texto = document.getElementById('com-texto').value.trim();
 
-    const calificacion = document.querySelector(
-        'input[name="calificacion"]:checked'
-    );
-
-    if(!calificacion) {
-        alert('Selecciona una calificación.');
-        return;
+    if(idEdit) {
+        comentarios = comentarios.map(c => c.id == idEdit ? {...c, nombre, texto} : c);
+        cancelarEdicionComentario();
+    } else {
+        const nuevoComentario = {
+            id: Date.now(),
+            nombre: nombre,
+            texto: texto,
+            fecha: new Date().toLocaleDateString('es-MX')
+        };
+        comentarios.unshift(nuevoComentario);
     }
 
-    const nuevoComentario = {
-
-        id: Date.now(),
-
-        nombre: nombre,
-
-        texto: texto,
-
-        calificacion: Number(calificacion.value),
-
-        fecha: new Date().toLocaleDateString('es-MX')
-
-    };
-
-    comentarios.unshift(nuevoComentario);
-
-    localStorage.setItem(
-        'valfer_comentarios',
-        JSON.stringify(comentarios)
-    );
-
+    localStorage.setItem('valfer_comentarios', JSON.stringify(comentarios));
     mostrarComentarios();
-
     document.getElementById('form-comentario').reset();
 
     const toast = document.getElementById('toast-comentario');
-
     toast.style.display = 'block';
+    toast.innerText = '¡Comentario guardado correctamente! 💜';
+    setTimeout(() => toast.style.display = 'none', 3000);
+}
 
-    toast.innerText = '¡Gracias por compartir tu opinión! 💜';
+function editarComentario(id) {
+    const item = comentarios.find(c => c.id === id);
+    if(item) {
+        document.getElementById('comentario-id-edit').value = item.id;
+        document.getElementById('com-nombre').value = item.nombre;
+        document.getElementById('com-texto').value = item.texto;
+        document.getElementById('btn-guardar-comentario').innerText = '💾 Actualizar Comentario';
+        document.getElementById('btn-cancelar-edit-comentario').style.display = 'inline-block';
+    }
+}
 
+function cancelarEdicionComentario() {
+    document.getElementById('comentario-id-edit').value = '';
+    document.getElementById('form-comentario').reset();
+    document.getElementById('btn-guardar-comentario').innerText = '💜 Publicar comentario';
+    document.getElementById('btn-cancelar-edit-comentario').style.display = 'none';
+}
+
+function eliminarComentario(id) {
+    if(confirm('¿Deseas eliminar este comentario?')) {
+        comentarios = comentarios.filter(c => c.id !== id);
+        localStorage.setItem('valfer_comentarios', JSON.stringify(comentarios));
+        mostrarComentarios();
+    }
 }
 
 /* ============================= */
-/* PUBLICACIONES */
+/* APARTADO DE RESEÑAS CON ESTRELLAS */
 /* ============================= */
 
-let misPublicaciones = JSON.parse(
-    localStorage.getItem('valfer_publicaciones') || '[]'
-);
+let resenas = JSON.parse(localStorage.getItem('valfer_resenas') || '[]');
+
+function renderResenas() {
+    document.getElementById('user-display').innerText = usuarioActual;
+
+    const listaMis = document.getElementById('lista-mis-resenas');
+    const listaOtras = document.getElementById('lista-otras-resenas');
+
+    listaMis.innerHTML = '';
+    listaOtras.innerHTML = '';
+
+    const misResenas = resenas.filter(r => r.usuario === usuarioActual);
+    const otrasResenas = resenas.filter(r => r.usuario !== usuarioActual);
+
+    if(misResenas.length === 0) {
+        listaMis.innerHTML = '<p class="sin-comentarios">No has publicado ninguna reseña aún.</p>';
+    } else {
+        misResenas.forEach(res => listaMis.appendChild(crearTarjetaResena(res, true)));
+    }
+
+    if(otrasResenas.length === 0) {
+        listaOtras.innerHTML = '<p class="sin-comentarios">No hay reseñas de otros usuarios disponibles.</p>';
+    } else {
+        otrasResenas.forEach(res => listaOtras.appendChild(crearTarjetaResena(res, false)));
+    }
+}
+
+function crearTarjetaResena(res, esPropia) {
+    const div = document.createElement('div');
+    div.className = 'comment-item';
+
+    const usuario = document.createElement('strong');
+    usuario.textContent = `${res.usuario} ${esPropia ? '(Tú)' : ''} - [${res.producto}]`;
+
+    const estrellas = document.createElement('div');
+    estrellas.className = 'estrellas';
+    estrellas.textContent = '★'.repeat(res.calificacion) + '☆'.repeat(5 - res.calificacion);
+
+    const texto = document.createElement('p');
+    texto.textContent = res.texto;
+
+    const fecha = document.createElement('small');
+    fecha.style.display = 'block';
+    fecha.style.color = '#888';
+    fecha.textContent = res.fecha;
+
+    const acciones = document.createElement('div');
+    acciones.className = 'acciones-item';
+    acciones.innerHTML = `
+        <button class="btn btn-warning btn-sm" onclick="editarResena(${res.id})">✏️ Editar</button>
+        <button class="btn btn-danger btn-sm" onclick="eliminarResena(${res.id})">🗑️ Eliminar</button>
+    `;
+
+    div.append(usuario, estrellas, texto, fecha, acciones);
+    return div;
+}
+
+function guardarResena(e) {
+    e.preventDefault();
+    const idEdit = document.getElementById('resena-id-edit').value;
+    const producto = document.getElementById('resena-producto').value.trim();
+    const texto = document.getElementById('resena-texto').value.trim();
+    const calificacionSelect = document.querySelector('input[name="res-calif"]:checked');
+
+    if(!calificacionSelect) {
+        alert('Selecciona una calificación en estrellas.');
+        return;
+    }
+
+    if(idEdit) {
+        resenas = resenas.map(r => r.id == idEdit ? {
+            ...r, producto, texto, calificacion: Number(calificacionSelect.value)
+        } : r);
+        cancelarEdicionResena();
+    } else {
+        const nuevaResena = {
+            id: Date.now(),
+            usuario: usuarioActual,
+            producto: producto,
+            texto: texto,
+            calificacion: Number(calificacionSelect.value),
+            fecha: new Date().toLocaleDateString('es-MX')
+        };
+        resenas.unshift(nuevaResena);
+    }
+
+    localStorage.setItem('valfer_resenas', JSON.stringify(resenas));
+    renderResenas();
+    document.getElementById('form-resena').reset();
+
+    const toast = document.getElementById('toast-resena');
+    toast.style.display = 'block';
+    toast.innerText = '¡Reseña registrada con éxito!';
+    setTimeout(() => toast.style.display = 'none', 3000);
+}
+
+function editarResena(id) {
+    const item = resenas.find(r => r.id === id);
+    if(item) {
+        document.getElementById('resena-id-edit').value = item.id;
+        document.getElementById('resena-producto').value = item.producto;
+        document.getElementById('resena-texto').value = item.texto;
+        const rad = document.querySelector(`input[name="res-calif"][value="${item.calificacion}"]`);
+        if(rad) rad.checked = true;
+
+        document.getElementById('btn-guardar-resena').innerText = '💾 Actualizar Reseña';
+        document.getElementById('btn-cancelar-resena').style.display = 'inline-block';
+        verModulo('resenas');
+    }
+}
+
+function cancelarEdicionResena() {
+    document.getElementById('resena-id-edit').value = '';
+    document.getElementById('form-resena').reset();
+    document.getElementById('btn-guardar-resena').innerText = '⭐ Publicar Reseña';
+    document.getElementById('btn-cancelar-resena').style.display = 'none';
+}
+
+function eliminarResena(id) {
+    if(confirm('¿Deseas eliminar esta reseña?')) {
+        resenas = resenas.filter(r => r.id !== id);
+        localStorage.setItem('valfer_resenas', JSON.stringify(resenas));
+        renderResenas();
+    }
+}
+
+/* ============================= */
+/* PUBLICACIONES Y MARKETPLACE */
+/* ============================= */
+
+let misPublicaciones = JSON.parse(localStorage.getItem('valfer_publicaciones') || '[]');
 
 function guardarPublicaciones() {
-
-    localStorage.setItem(
-        'valfer_publicaciones',
-        JSON.stringify(misPublicaciones)
-    );
-
+    localStorage.setItem('valfer_publicaciones', JSON.stringify(misPublicaciones));
 }
 
-function renderMisPublicaciones() {
+function renderPublicacionesYMarketplace() {
+    const contenedorMis = document.getElementById('grid-mis-publicaciones');
+    const contenedorMarket = document.getElementById('grid-marketplace');
 
-    const contenedor = document.getElementById(
-        'grid-mis-publicaciones'
-    );
-
-    contenedor.innerHTML = '';
+    contenedorMis.innerHTML = '';
+    contenedorMarket.innerHTML = '';
 
     if(misPublicaciones.length === 0) {
-
-        contenedor.innerHTML =
-        '<p>No tienes publicaciones todavía. 💜</p>';
-
+        const vacio = '<p style="grid-column: 1/-1;">No hay publicaciones disponibles en este momento. 💜</p>';
+        contenedorMis.innerHTML = vacio;
+        contenedorMarket.innerHTML = vacio;
         return;
-
     }
 
     misPublicaciones.forEach(item => {
-
-        const el = document.createElement('div');
-
-        el.className = 'item-c2c';
-
-        const titulo = document.createElement('h4');
-        titulo.textContent = item.titulo;
-
-        const precio = document.createElement('p');
-        precio.style.color = '#8207DB';
-        precio.style.fontWeight = 'bold';
-        precio.textContent = '$' + Number(item.precio).toFixed(2) + ' MXN';
-
-        const descripcion = document.createElement('p');
-        descripcion.textContent = item.desc;
-
-        if(item.foto) {
-
-            const imagen = document.createElement('img');
-            imagen.src = item.foto;
-            imagen.alt = item.titulo;
-            el.appendChild(imagen);
-
-        }
-
-        const eliminar = document.createElement('button');
-
-        eliminar.className = 'btn btn-secondary';
-
-        eliminar.textContent = '🗑️ Eliminar';
-
-        eliminar.onclick = () => eliminarPublicacion(item.id);
-
-        el.append(titulo, precio, descripcion, eliminar);
-
-        contenedor.appendChild(el);
-
+        contenedorMis.appendChild(crearTarjetaProducto(item, true));
+        contenedorMarket.appendChild(crearTarjetaProducto(item, false));
     });
+}
 
+function crearTarjetaProducto(item, esSeccionMisPub) {
+    const el = document.createElement('div');
+    el.className = 'item-c2c';
+
+    const header = document.createElement('div');
+    const uTag = document.createElement('div');
+    uTag.className = 'usuario-tag';
+    uTag.textContent = `Publicado por: ${item.usuario || 'Anónimo'}`;
+
+    const titulo = document.createElement('h4');
+    titulo.textContent = item.titulo;
+
+    header.append(uTag, titulo);
+
+    const precio = document.createElement('p');
+    precio.style.color = '#8207DB';
+    precio.style.fontWeight = 'bold';
+    precio.textContent = '$' + Number(item.precio).toFixed(2) + ' MXN';
+
+    const descripcion = document.createElement('p');
+    descripcion.textContent = item.desc;
+
+    let imagen = null;
+    if(item.foto) {
+        imagen = document.createElement('img');
+        imagen.src = item.foto;
+        imagen.alt = item.titulo;
+    }
+
+    const acciones = document.createElement('div');
+    acciones.className = 'acciones-item';
+    acciones.innerHTML = `
+        <button class="btn btn-warning btn-sm" onclick="editarProducto(${item.id})">✏️ Editar</button>
+        <button class="btn btn-danger btn-sm" onclick="eliminarPublicacion(${item.id})">🗑️ Eliminar</button>
+    `;
+
+    el.append(header);
+    if(imagen) el.appendChild(imagen);
+    el.append(precio, descripcion, acciones);
+
+    return el;
 }
 
 function publicarC2C(e) {
-
     e.preventDefault();
 
+    const idEdit = document.getElementById('prod-id-edit').value;
     const titulo = document.getElementById('c2c-titulo').value.trim();
-
     const precio = Number(document.getElementById('c2c-precio').value);
-
     const desc = document.getElementById('c2c-desc').value.trim();
-
     const archivo = document.getElementById('c2c-foto').files[0];
 
-    const guardar = (foto = '') => {
-
-        const nuevoItem = {
-
-            id: Date.now(),
-
-            titulo: titulo,
-
-            precio: precio,
-
-            desc: desc,
-
-            foto: foto
-
-        };
-
-        misPublicaciones.unshift(nuevoItem);
+    const procesarGuardado = (fotoUrl = '') => {
+        if(idEdit) {
+            misPublicaciones = misPublicaciones.map(item => {
+                if(item.id == idEdit) {
+                    return {
+                        ...item,
+                        titulo,
+                        precio,
+                        desc,
+                        foto: fotoUrl || item.foto
+                    };
+                }
+                return item;
+            });
+            cancelarEdicionProducto();
+        } else {
+            const nuevoItem = {
+                id: Date.now(),
+                usuario: usuarioActual,
+                titulo: titulo,
+                precio: precio,
+                desc: desc,
+                foto: fotoUrl
+            };
+            misPublicaciones.unshift(nuevoItem);
+        }
 
         guardarPublicaciones();
-
-        renderMisPublicaciones();
-
+        renderPublicacionesYMarketplace();
         document.getElementById('form-c2c').reset();
 
         const toast = document.getElementById('toast-c2c');
-
         toast.style.display = 'block';
-
-        toast.innerText = '¡Tu producto se publicó correctamente! 💜';
-
+        toast.innerText = '¡Producto guardado en el Marketplace! 💜';
+        setTimeout(() => toast.style.display = 'none', 3000);
     };
 
     if(archivo) {
-
         if(!archivo.type.startsWith('image/')) {
             alert('Selecciona una imagen válida.');
             return;
         }
-
         if(archivo.size > 2 * 1024 * 1024) {
             alert('La imagen debe pesar menos de 2 MB.');
             return;
         }
-
         const lector = new FileReader();
-
-        lector.onload = () => guardar(lector.result);
-
+        lector.onload = () => procesarGuardado(lector.result);
         lector.onerror = () => alert('No se pudo leer la imagen.');
-
         lector.readAsDataURL(archivo);
-
     } else {
-
-        guardar();
-
+        procesarGuardado();
     }
+}
 
+function editarProducto(id) {
+    const item = misPublicaciones.find(p => p.id === id);
+    if(item) {
+        document.getElementById('prod-id-edit').value = item.id;
+        document.getElementById('c2c-titulo').value = item.titulo;
+        document.getElementById('c2c-precio').value = item.precio;
+        document.getElementById('c2c-desc').value = item.desc;
+
+        document.getElementById('btn-guardar-prod').innerText = '💾 Actualizar Producto';
+        document.getElementById('btn-cancelar-prod').style.display = 'block';
+        verModulo('c2c-publicar');
+    }
+}
+
+function cancelarEdicionProducto() {
+    document.getElementById('prod-id-edit').value = '';
+    document.getElementById('form-c2c').reset();
+    document.getElementById('btn-guardar-prod').innerText = 'Publicar producto';
+    document.getElementById('btn-cancelar-prod').style.display = 'none';
 }
 
 function eliminarPublicacion(id) {
-
-    misPublicaciones = misPublicaciones.filter(
-        item => item.id !== id
-    );
-
-    guardarPublicaciones();
-
-    renderMisPublicaciones();
-
+    if(confirm('¿Seguro que deseas eliminar este producto del marketplace?')) {
+        misPublicaciones = misPublicaciones.filter(item => item.id !== id);
+        guardarPublicaciones();
+        renderPublicacionesYMarketplace();
+    }
 }
 
 /* ============================= */
@@ -1240,77 +1390,49 @@ function eliminarPublicacion(id) {
 let ofertaActual = 320;
 
 function hacerOferta() {
-
     const input = document.getElementById('input-oferta');
-
     const monto = Number(input.value);
-
     const toast = document.getElementById('toast-subasta');
 
     toast.style.display = 'block';
 
     if(!monto || monto <= ofertaActual) {
-
         toast.style.background = '#f8d7da';
         toast.style.color = '#721c24';
-
-        toast.innerText =
-        `Tu oferta debe superar los $${ofertaActual.toFixed(2)} MXN.`;
-
+        toast.innerText = `Tu oferta debe superar los $${ofertaActual.toFixed(2)} MXN.`;
         return;
-
     }
 
     ofertaActual = monto;
-
-    document.getElementById('monto-subasta').innerText =
-    `$${monto.toFixed(2)} MXN`;
+    document.getElementById('monto-subasta').innerText = `$${monto.toFixed(2)} MXN`;
 
     const nuevaOferta = document.createElement('li');
-
-    nuevaOferta.textContent =
-    `Tú ofertaste $${monto.toFixed(2)} MXN`;
-
-    document.getElementById('lista-ofertas')
-    .prepend(nuevaOferta);
+    nuevaOferta.textContent = `${usuarioActual} ofertó $${monto.toFixed(2)} MXN`;
+    document.getElementById('lista-ofertas').prepend(nuevaOferta);
 
     toast.style.background = '#d4edda';
     toast.style.color = '#155724';
-
     toast.innerText = '¡Tu oferta se registró correctamente!';
-
     input.value = '';
-
 }
 
 /* ============================= */
-/* TEMPORIZADOR */
+/* TEMPORIZADOR SUBASTA */
 /* ============================= */
 
 let tiempo = 299;
 
 const intervaloSubasta = setInterval(() => {
-
     if(tiempo <= 0) {
-
         clearInterval(intervaloSubasta);
-
-        document.getElementById('auction-timer').innerText =
-        '¡SUBASTA FINALIZADA!';
-
+        document.getElementById('auction-timer').innerText = '¡SUBASTA FINALIZADA!';
         return;
-
     }
 
     tiempo--;
-
     const min = String(Math.floor(tiempo / 60)).padStart(2, '0');
-
     const sec = String(tiempo % 60).padStart(2, '0');
-
-    document.getElementById('auction-timer').innerText =
-    `${min}:${sec}`;
-
+    document.getElementById('auction-timer').innerText = `${min}:${sec}`;
 }, 1000);
 
 /* ============================= */
@@ -1318,13 +1440,10 @@ const intervaloSubasta = setInterval(() => {
 /* ============================= */
 
 document.addEventListener('DOMContentLoaded', () => {
-
     actualizarCarrito();
-
     mostrarComentarios();
-
-    renderMisPublicaciones();
-
+    renderResenas();
+    renderPublicacionesYMarketplace();
 });
 
 </script>
