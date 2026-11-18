@@ -1,0 +1,899 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Finalizar compra | ValFer Cosmetic</title>
+
+    <!-- Conexión con nuestra hoja de estilos -->
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <!-- =================================
+         ENCABEZADO DE VALFER COSMETIC
+         ================================= -->
+
+    <header class="encabezado">
+
+        <!-- Logo y nombre del negocio -->
+        <a href="index.html" class="logo-container">
+
+            <img src="img/valfer logo.jpeg"
+                 alt="Logo ValFer Cosmetic"
+                 class="mini-logo">
+
+            <span>ValFer <b>Cosmetic</b></span>
+
+        </a>
+
+        <!-- Menú de navegación -->
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="catalogo.html">Catálogo</a>
+            <a href="carrito.html">🛒 Carrito</a>
+            <a href="perfil.html">Mi Perfil</a>
+        </nav>
+
+    </header>
+
+
+    <!-- =================================
+         CONTENIDO PRINCIPAL
+         ================================= -->
+
+    <main>
+
+        <section class="tarjeta-seccion">
+
+            <h2>💜 Finalizar Compra</h2>
+
+
+            <!-- RESUMEN DEL CARRITO -->
+
+            <div class="resumen">
+
+                <h3>
+                    🛒 Resumen de tu pedido
+                    (<span id="resumen-cantidad-total">0</span> artículos)
+                </h3>
+
+                <!-- Aquí aparecen los productos -->
+                <div id="lista-carrito-resumen"></div>
+
+                <p class="total">
+                    Total a pagar:
+                    $<span id="total-a-pagar">0.00</span> MXN
+                </p>
+
+            </div>
+
+
+            <!-- =================================
+                 PASO 1: DIRECCIÓN DE ENVÍO
+                 ================================= -->
+
+            <div id="paso-1">
+
+                <h3>📦 Paso 1: Dirección de Envío</h3>
+
+                <form onsubmit="irPaso2(event)">
+
+                    <input
+                        type="text"
+                        id="envio-nombre"
+                        placeholder="Nombre completo del destinatario"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        id="envio-calle"
+                        placeholder="Calle y número"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        id="envio-ciudad"
+                        placeholder="Ciudad"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        id="envio-cp"
+                        placeholder="Código Postal"
+                        required
+                    >
+
+                    <button type="submit" class="btn">
+                        Continuar al Pago ➔
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================
+                 PASO 2: MÉTODO DE PAGO
+                 ================================= -->
+
+            <div id="paso-2" style="display:none;">
+
+                <h3>💳 Paso 2: Método de Pago</h3>
+
+                <p class="total">
+                    Total a cubrir:
+                    $<span id="total-pago-paso2">0.00</span> MXN
+                </p>
+
+
+                <!-- PAGO CON TARJETA -->
+
+                <label class="opcion-pago">
+
+                    <input
+                        type="radio"
+                        name="pago"
+                        value="tarjeta"
+                        onchange="mostrarDetallesPago('tarjeta')"
+                    >
+
+                    💳 Tarjeta de Crédito / Débito
+
+                </label>
+
+                <div id="form-tarjeta" class="detalles-pago" style="display:none;">
+
+                    <input type="text" placeholder="Nombre en la tarjeta">
+
+                    <input
+                        type="text"
+                        placeholder="Número de tarjeta (0000 0000 0000 0000)"
+                        maxlength="19"
+                    >
+
+                    <div class="fila">
+
+                        <input type="text" placeholder="MM/AA">
+
+                        <input type="password" placeholder="CVV" maxlength="3">
+
+                    </div>
+
+                    <p class="nota">
+                        Simulación académica. No introduzcas datos reales.
+                    </p>
+
+                </div>
+
+
+                <!-- TRANSFERENCIA -->
+
+                <label class="opcion-pago">
+
+                    <input
+                        type="radio"
+                        name="pago"
+                        value="transferencia"
+                        onchange="mostrarDetallesPago('transferencia')"
+                    >
+
+                    🏦 Transferencia SPEI
+
+                </label>
+
+                <div id="form-transferencia" class="detalles-pago" style="display:none;">
+
+                    <p>
+                        <strong>Datos de ejemplo:</strong>
+                        Transferencia bancaria simulada.
+                    </p>
+
+                </div>
+
+
+                <!-- E-WALLET -->
+
+                <label class="opcion-pago">
+
+                    <input
+                        type="radio"
+                        name="pago"
+                        value="ewallet"
+                        onchange="mostrarDetallesPago('ewallet')"
+                    >
+
+                    📱 E-Wallet
+
+                </label>
+
+                <div id="form-ewallet" class="detalles-pago" style="display:none;">
+
+                    <p>
+                        Saldo disponible de ejemplo:
+                        <strong>$1,000.00 MXN</strong>
+                    </p>
+
+                    <p>
+                        Se descontarán:
+                        $<span id="total-ewallet">0.00</span> MXN.
+                    </p>
+
+                </div>
+
+
+                <!-- PAGO EN EFECTIVO -->
+
+                <label class="opcion-pago">
+
+                    <input
+                        type="radio"
+                        name="pago"
+                        value="efectivo"
+                        onchange="mostrarDetallesPago('efectivo')"
+                    >
+
+                    💵 Pago en efectivo
+
+                </label>
+
+                <div id="form-efectivo" class="detalles-pago" style="display:none;">
+
+                    <p>
+                        Al confirmar tu pedido se generará un folio
+                        para identificar tu compra.
+                    </p>
+
+                    <p>
+                        Total:
+                        $<span id="total-efectivo">0.00</span> MXN.
+                    </p>
+
+                </div>
+
+
+                <!-- BOTONES -->
+
+                <div class="botones-pago">
+
+                    <button
+                        type="button"
+                        class="btn btn-secundario"
+                        onclick="irPaso1()"
+                    >
+                        ⬅️ Regresar
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn"
+                        onclick="procesarPago()"
+                    >
+                        Pagar y Confirmar 💜
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 PASO 3: PROCESANDO
+                 ================================= -->
+
+            <div id="paso-procesando" style="display:none;">
+
+                <div class="procesando">
+
+                    <h3>✨ Procesando tu compra...</h3>
+
+                    <p>
+                        Estamos preparando tu comprobante.
+                        Por favor espera un momento.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 PASO 4: COMPROBANTE
+                 ================================= -->
+
+            <div id="paso-ticket" style="display:none;">
+
+                <div class="ticket">
+
+                    <h2>💜 ValFer Cosmetic</h2>
+
+                    <p id="ticket-estado" class="estado">
+                        ¡Compra registrada!
+                    </p>
+
+                    <div class="folio">
+
+                        <strong>Folio:</strong>
+
+                        <span id="ticket-folio"></span>
+
+                        <br>
+
+                        <small>
+                            Fecha:
+                            <span id="ticket-fecha"></span>
+                        </small>
+
+                    </div>
+
+                    <hr>
+
+                    <p>
+                        <strong>Cliente:</strong>
+                        <span id="ticket-cliente"></span>
+                    </p>
+
+                    <p>
+                        <strong>Dirección:</strong>
+                        <span id="ticket-direccion"></span>
+                    </p>
+
+                    <p>
+                        <strong>Método de pago:</strong>
+                        <span id="ticket-metodo"></span>
+                    </p>
+
+                    <p id="ticket-nota-efectivo" style="display:none;">
+                        💵 Conserva tu folio para identificar
+                        tu pago en efectivo.
+                    </p>
+
+                    <hr>
+
+                    <p><strong>Productos:</strong></p>
+
+                    <div id="ticket-articulos-lista"></div>
+
+                    <h3 class="total">
+                        Total:
+                        $<span id="ticket-total-monto">0.00</span> MXN
+                    </h3>
+
+                </div>
+
+
+                <!-- BOTONES DEL COMPROBANTE -->
+
+                <div class="botones-pago">
+
+                    <button
+                        type="button"
+                        id="btn-descargar-pdf"
+                        class="btn btn-secundario"
+                        onclick="alert('La descarga PDF es una función simulada 📄')"
+                    >
+                        📥 Descargar PDF
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn"
+                        onclick="window.location.href='perfil.html'"
+                    >
+                        Ver en Mis Compras
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =================================
+         PIE DE PÁGINA
+         ================================= -->
+
+    <footer>
+
+        <p>© 2026 ValFer Cosmetic</p>
+
+        <p>
+            Gracias por elegirnos.
+            ¡Esperamos que disfrutes tu compra! 💜
+        </p>
+
+    </footer>
+
+
+    <!-- =================================
+         JAVASCRIPT
+         FUNCIONES DEL CHECKOUT
+         ================================= -->
+
+    <script>
+
+        // Variables principales
+        let carritoGlobal = [];
+        let totalGlobal = 0;
+
+        // Datos del pedido
+        let datosPedido = {
+
+            folio: 'VF-' + Math.floor(Math.random() * 90000 + 10000),
+
+            fecha: new Date().toLocaleDateString() +
+                   ' ' +
+                   new Date().toLocaleTimeString(),
+
+            cliente: '',
+            direccion: '',
+            metodo: '',
+            total: 0,
+            articulos: ''
+
+        };
+
+
+        // CARGAR PRODUCTOS DEL CARRITO
+
+        function cargarYRenderizarCheckout() {
+
+            const guardado = JSON.parse(
+                localStorage.getItem('carritoEnvStar') || '[]'
+            );
+
+            carritoGlobal = Array.isArray(guardado)
+                ? guardado.map(item => ({
+
+                    nombre: item.nombre,
+
+                    precio: Number(item.precio) || 0,
+
+                    img: item.img || '',
+
+                    cantidad: Math.max(
+                        1,
+                        parseInt(item.cantidad, 10) || 1
+                    )
+
+                }))
+                : [];
+
+
+            // Comprobar si el carrito está vacío
+
+            if (carritoGlobal.length === 0) {
+
+                alert('Tu carrito está vacío. Regresando al catálogo.');
+
+                window.location.href = 'catalogo.html';
+
+                return;
+
+            }
+
+
+            totalGlobal = 0;
+
+            let totalArticulos = 0;
+
+            let htmlResumen = '';
+
+            let listaTexto = [];
+
+
+            // Recorrer todos los productos
+
+            carritoGlobal.forEach((item, index) => {
+
+                const sub = item.precio * item.cantidad;
+
+                totalGlobal += sub;
+
+                totalArticulos += item.cantidad;
+
+                listaTexto.push(
+                    `${item.cantidad}x ${item.nombre}`
+                );
+
+
+                htmlResumen += `
+
+                    <div class="cart-item">
+
+                        <div>
+
+                            <strong>${item.nombre}</strong>
+
+                            <br>
+
+                            <small>
+                                $${item.precio.toFixed(2)} c/u
+                            </small>
+
+                        </div>
+
+                        <div class="cart-item-acciones">
+
+                            <button
+                                type="button"
+                                onclick="actualizarCantidadCheckout(${index}, -1)"
+                            >-</button>
+
+                            <strong>${item.cantidad}</strong>
+
+                            <button
+                                type="button"
+                                onclick="actualizarCantidadCheckout(${index}, 1)"
+                            >+</button>
+
+                            <strong>
+                                $${sub.toFixed(2)}
+                            </strong>
+
+                            <button
+                                type="button"
+                                class="btn-eliminar"
+                                onclick="eliminarArticuloCheckout(${index})"
+                            >
+                                🗑️
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+
+            // Actualizar cantidades y totales
+
+            document.getElementById(
+                'resumen-cantidad-total'
+            ).innerText = totalArticulos;
+
+            document.getElementById(
+                'lista-carrito-resumen'
+            ).innerHTML = htmlResumen;
+
+            document.getElementById(
+                'total-a-pagar'
+            ).innerText = totalGlobal.toFixed(2);
+
+            document.getElementById(
+                'total-pago-paso2'
+            ).innerText = totalGlobal.toFixed(2);
+
+            document.getElementById(
+                'total-ewallet'
+            ).innerText = totalGlobal.toFixed(2);
+
+            document.getElementById(
+                'total-efectivo'
+            ).innerText = totalGlobal.toFixed(2);
+
+
+            datosPedido.total = totalGlobal;
+
+            datosPedido.articulos = listaTexto.join(', ');
+
+        }
+
+
+        // AUMENTAR O DISMINUIR CANTIDAD
+
+        function actualizarCantidadCheckout(index, delta) {
+
+            const nueva =
+                carritoGlobal[index].cantidad + delta;
+
+            if (nueva >= 1) {
+
+                carritoGlobal[index].cantidad = nueva;
+
+                localStorage.setItem(
+                    'carritoEnvStar',
+                    JSON.stringify(carritoGlobal)
+                );
+
+                cargarYRenderizarCheckout();
+
+            }
+
+        }
+
+
+        // ELIMINAR PRODUCTO
+
+        function eliminarArticuloCheckout(index) {
+
+            carritoGlobal.splice(index, 1);
+
+            localStorage.setItem(
+                'carritoEnvStar',
+                JSON.stringify(carritoGlobal)
+            );
+
+            if (carritoGlobal.length === 0) {
+
+                alert('Tu carrito está vacío.');
+
+                window.location.href = 'catalogo.html';
+
+                return;
+
+            }
+
+            cargarYRenderizarCheckout();
+
+        }
+
+
+        // CARGAR AL ABRIR LA PÁGINA
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            cargarYRenderizarCheckout
+        );
+
+
+        // REGRESAR AL PASO 1
+
+        function irPaso1() {
+
+            document.getElementById('paso-2').style.display = 'none';
+
+            document.getElementById('paso-1').style.display = 'block';
+
+        }
+
+
+        // CONTINUAR AL PASO 2
+
+        function irPaso2(event) {
+
+            event.preventDefault();
+
+            datosPedido.cliente =
+                document.getElementById('envio-nombre').value;
+
+            datosPedido.direccion =
+                document.getElementById('envio-calle').value +
+                ', ' +
+                document.getElementById('envio-ciudad').value +
+                ', C.P. ' +
+                document.getElementById('envio-cp').value;
+
+
+            document.getElementById('paso-1').style.display = 'none';
+
+            document.getElementById('paso-2').style.display = 'block';
+
+        }
+
+
+        // MOSTRAR DETALLES DEL MÉTODO DE PAGO
+
+        function mostrarDetallesPago(metodo) {
+
+            document.getElementById('form-tarjeta').style.display = 'none';
+
+            document.getElementById('form-transferencia').style.display = 'none';
+
+            document.getElementById('form-ewallet').style.display = 'none';
+
+            document.getElementById('form-efectivo').style.display = 'none';
+
+
+            document.getElementById(
+                `form-${metodo}`
+            ).style.display = 'block';
+
+
+            datosPedido.metodo = metodo.toUpperCase();
+
+        }
+
+
+        // PROCESAR COMPRA SIMULADA
+
+        function procesarPago() {
+
+            const seleccionado =
+                document.querySelector(
+                    'input[name="pago"]:checked'
+                );
+
+
+            if (!seleccionado) {
+
+                alert('Selecciona un método de pago para continuar.');
+
+                return;
+
+            }
+
+
+            // Comprobar el saldo de ejemplo
+
+            if (
+                datosPedido.metodo === 'EWALLET' &&
+                totalGlobal > 1000
+            ) {
+
+                alert('No tienes suficiente saldo disponible.');
+
+                return;
+
+            }
+
+
+            document.getElementById('paso-2').style.display = 'none';
+
+            document.getElementById('paso-procesando').style.display = 'block';
+
+
+            // Simular procesamiento
+
+            setTimeout(() => {
+
+                let htmlTicketProductos = '';
+
+
+                carritoGlobal.forEach(item => {
+
+                    const sub = item.precio * item.cantidad;
+
+                    htmlTicketProductos += `
+
+                        <div class="cart-item">
+
+                            <span>
+                                ${item.cantidad}x ${item.nombre}
+                            </span>
+
+                            <strong>
+                                $${sub.toFixed(2)}
+                            </strong>
+
+                        </div>
+
+                    `;
+
+                });
+
+
+                const esEfectivo =
+                    datosPedido.metodo === 'EFECTIVO';
+
+
+                const nombresMetodo = {
+
+                    TARJETA: 'Tarjeta de Crédito / Débito',
+
+                    TRANSFERENCIA: 'Transferencia SPEI',
+
+                    EWALLET: 'Saldo E-Wallet',
+
+                    EFECTIVO: 'Pago en efectivo'
+
+                };
+
+
+                // Mostrar información del comprobante
+
+                document.getElementById(
+                    'ticket-estado'
+                ).innerText = esEfectivo
+                    ? '¡Pedido registrado! Folio generado'
+                    : '¡Compra simulada aprobada!';
+
+
+                document.getElementById(
+                    'ticket-folio'
+                ).innerText = datosPedido.folio;
+
+                document.getElementById(
+                    'ticket-fecha'
+                ).innerText = datosPedido.fecha;
+
+                document.getElementById(
+                    'ticket-cliente'
+                ).innerText = datosPedido.cliente;
+
+                document.getElementById(
+                    'ticket-direccion'
+                ).innerText = datosPedido.direccion;
+
+                document.getElementById(
+                    'ticket-metodo'
+                ).innerText =
+                    nombresMetodo[datosPedido.metodo];
+
+
+                document.getElementById(
+                    'ticket-articulos-lista'
+                ).innerHTML = htmlTicketProductos;
+
+                document.getElementById(
+                    'ticket-total-monto'
+                ).innerText = totalGlobal.toFixed(2);
+
+
+                // Mostrar nota de pago en efectivo
+
+                document.getElementById(
+                    'ticket-nota-efectivo'
+                ).style.display =
+                    esEfectivo ? 'block' : 'none';
+
+
+                document.getElementById(
+                    'btn-descargar-pdf'
+                ).style.display =
+                    esEfectivo ? 'none' : 'inline-block';
+
+
+                // GUARDAR HISTORIAL DE COMPRAS
+
+                const correo =
+                    localStorage.getItem('envStarCorreo') ||
+                    'invitado@valfercosmetic.com';
+
+
+                const historial = JSON.parse(
+                    localStorage.getItem('historialCompras') || '[]'
+                );
+
+
+                historial.push({
+
+                    ...datosPedido,
+
+                    correoUsuario: correo
+
+                });
+
+
+                localStorage.setItem(
+                    'historialCompras',
+                    JSON.stringify(historial)
+                );
+
+
+                // VACIAR CARRITO
+
+                localStorage.removeItem('carritoEnvStar');
+
+
+                // MOSTRAR COMPROBANTE
+
+                document.getElementById(
+                    'paso-procesando'
+                ).style.display = 'none';
+
+                document.getElementById(
+                    'paso-ticket'
+                ).style.display = 'block';
+
+
+            }, 1800);
+
+        }
+
+    </script>
+
+</body>
+</html>
