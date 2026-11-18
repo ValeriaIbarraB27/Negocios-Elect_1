@@ -1,18 +1,176 @@
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi perfil | ValFer Cosmetic</title>
+    <title> Perfil | ValFer Cosmetic</title>
     <link rel="stylesheet" href="estilos.css">
-<style>
-.mis-comentarios{margin-top:28px;text-align:left;border-top:1px solid #eee;padding-top:22px}
-.mis-comentarios h2{color:var(--morado,#9f37c4);text-align:center;margin-bottom:10px}
-.comentario-perfil{background:#faf5ff;border:1px solid #ead7f5;border-radius:13px;padding:15px;margin:12px 0}
-.estrellas{color:#e5a400;letter-spacing:2px;font-size:1.15rem}
-.comentario-perfil small{color:#777}
-</style>
+
+    <style>
+        :root {
+            --morado: #8207DB;
+            --lila: #C27AFF;
+            --fondo: #3f215c;
+        }
+
+        body {
+            background: var(--fondo);
+        }
+
+        .perfil-container {
+            width: 90%;
+            max-width: 850px;
+            margin: 30px auto;
+        }
+
+        .perfil-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(130, 7, 219, .10);
+        }
+
+        .perfil-card h2 {
+            color: var(--morado);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .foto-perfil {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            background: #f0dcff;
+            color: var(--morado);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            margin: 15px auto;
+        }
+
+        .perfil-card label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #5b287d;
+        }
+
+        .perfil-card input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #dec2f5;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .perfil-card input:focus {
+            outline: 2px solid var(--lila);
+        }
+
+        .boton-perfil {
+            width: 100%;
+            padding: 13px;
+            margin-top: 18px;
+            border: none;
+            border-radius: 12px;
+            background: var(--morado);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .boton-perfil:hover {
+            background: #6900b5;
+        }
+
+        .boton-secundario {
+            background: #ead7fa;
+            color: #5b287d;
+        }
+
+        .seccion-perfil {
+            margin-top: 30px;
+            padding-top: 22px;
+            border-top: 1px solid #eee;
+        }
+
+        .seccion-perfil h2 {
+            color: var(--morado);
+            text-align: center;
+        }
+
+        .comentario-perfil,
+        .tarjeta-resena,
+        .compra-perfil {
+            background: #faf5ff;
+            border: 1px solid #ead7f5;
+            border-radius: 13px;
+            padding: 15px;
+            margin: 12px 0;
+        }
+
+        .estrellas {
+            color: #e5a400;
+            letter-spacing: 2px;
+            font-size: 1.15rem;
+        }
+
+        .comentario-perfil small,
+        .tarjeta-resena small {
+            color: #777;
+        }
+
+        .volver {
+            display: block;
+            text-align: center;
+            margin-top: 22px;
+            color: var(--morado);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            z-index: 1000;
+        }
+
+        .modal-box {
+            background: white;
+            width: 100%;
+            max-width: 380px;
+            padding: 25px;
+            border-radius: 17px;
+            text-align: center;
+        }
+
+        .modal-box h3 {
+            color: var(--morado);
+        }
+
+        .modal-box button {
+            background: var(--morado);
+            color: white;
+            border: none;
+            padding: 11px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        @media(max-width: 600px) {
+            .perfil-card {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -22,155 +180,582 @@
         <p>Mi perfil</p>
     </header>
 
-    <main class="login-container">
-        <section class="login-card">
+    <main class="perfil-container">
+        <section class="perfil-card">
 
             <h2>Mi perfil 👤</h2>
 
-            <!-- Foto de perfil -->
-            <div class="foto-perfil">
-                👤
-            </div>
+            <div class="foto-perfil">👤</div>
 
             <p id="saludoPerfil" class="texto-login">
-                Aquí puedes modificar tus datos.
+                Aquí puedes consultar y modificar tus datos.
             </p>
-            <!-- PEGA ESTE BLOQUE EN perfil.html, dentro del contenido de tu perfil -->
-<section class="card">
-  <h2>💗 Mis reseñas en ValFer Cosmetic</h2>
-  <div id="perfilMisResenas" class="grid-comments"></div>
-</section>
 
-<script>
-function obtenerUsuarioPerfilValFer() {
-  const claves=['valfer_usuario_actual','usuarioActual','usuario','usuarioValFer','usuario_logueado','valferUser'];
-  for(const clave of claves){
-    const valor=localStorage.getItem(clave);
-    if(!valor) continue;
-    try{
-      const dato=JSON.parse(valor);
-      if(typeof dato==='string') return {id:dato,nombre:dato};
-      if(dato && typeof dato==='object'){
-        const id=dato.id??dato.uid??dato.email??dato.correo??dato.usuario??dato.username??'';
-        const nombre=dato.nombre??dato.name??dato.nombreCompleto??dato.username??dato.usuario??dato.email??'';
-        if(id||nombre) return {id:String(id||nombre),nombre:String(nombre||id)};
-      }
-    }catch{return {id:valor,nombre:valor};}
-  }
-  return null;
-}
+            <!-- Datos personales -->
+            <h2>Mis datos personales</h2>
 
-function mostrarResenasEnPerfilValFer(){
-  const cont=document.getElementById('perfilMisResenas');
-  if(!cont) return;
-  const usuario=obtenerUsuarioPerfilValFer();
-  const comentarios=JSON.parse(localStorage.getItem('valfer_comentarios')||'[]');
-  cont.innerHTML='';
-  if(!usuario){
-    cont.innerHTML='<p class="sin-comentarios">Inicia sesión para consultar tus reseñas. 💜</p>';
-    return;
-  }
-  const id=String(usuario.id||usuario.nombre).trim().toLocaleLowerCase('es-MX');
-  const nombre=String(usuario.nombre||'').trim().toLocaleLowerCase('es-MX');
-  const propias=comentarios.filter(com=>{
-    if(com.usuarioId) return String(com.usuarioId).trim().toLocaleLowerCase('es-MX')===id;
-    return String(com.nombre||'').trim().toLocaleLowerCase('es-MX')===nombre;
-  });
-  if(!propias.length){
-    cont.innerHTML='<p class="sin-comentarios">Aún no has publicado reseñas. Cuando compartas una opinión en Comunidad, aparecerá aquí. 💜</p>';
-    return;
-  }
-  propias.forEach(com=>{
-    const tarjeta=document.createElement('div'); tarjeta.className='comment-item';
-    const autor=document.createElement('strong'); autor.textContent=com.nombre||'Mi reseña';
-    const stars=document.createElement('div'); stars.className='estrellas';
-    const n=Math.min(5,Math.max(0,Number(com.calificacion)||0));
-    stars.textContent='★'.repeat(n)+'☆'.repeat(5-n);
-    const texto=document.createElement('p'); texto.textContent=com.texto||'';
-    const fecha=document.createElement('small'); fecha.textContent=com.fecha||'';
-    tarjeta.append(autor,stars,texto,fecha); cont.appendChild(tarjeta);
-  });
-}
-document.addEventListener('DOMContentLoaded',mostrarResenasEnPerfilValFer);
-</script>
-
-            <!-- Formulario de datos -->
-            <label>Nombre</label>
+            <label for="perfilNombre">Nombre</label>
             <input id="perfilNombre" type="text" placeholder="Tu nombre">
 
-            <label>Correo electrónico</label>
+            <label for="perfilCorreo">Correo electrónico</label>
             <input id="perfilCorreo" type="email" placeholder="Tu correo" readonly>
 
-            <label>Teléfono</label>
+            <label for="perfilTelefono">Teléfono</label>
             <input id="perfilTelefono" type="tel" placeholder="Tu teléfono">
 
-            <label>Dirección</label>
+            <label for="perfilDireccion">Dirección</label>
             <input id="perfilDireccion" type="text" placeholder="Tu dirección">
 
-            <!-- Botón Guardar -->
-            <button type="button" class="boton" onclick="guardarPerfil()">💾 Guardar cambios</button>
+            <button type="button" class="boton-perfil" onclick="guardarPerfil()">
+                💾 Guardar cambios
+            </button>
 
-            <section class="mis-comentarios">
+            <!-- Mis reseñas -->
+            <section class="seccion-perfil">
+                <h2>💗 Mis reseñas en ValFer Cosmetic</h2>
+                <div id="perfilMisResenas">
+                    <p>Aquí aparecerán tus reseñas.</p>
+                </div>
+            </section>
+
+            <!-- Mis comentarios -->
+            <section class="seccion-perfil">
                 <h2>💬 Mis comentarios</h2>
-                <p class="texto-login">Aquí aparecen las opiniones que has publicado en ValFer Cosmetic.</p>
+                <p class="texto-login">
+                    Aquí aparecen las opiniones que has publicado en ValFer Cosmetic.
+                </p>
                 <div id="comentariosPerfil"></div>
             </section>
 
-            <!-- Botones de Acción -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
-                <button type="button" class="btn btn-secundario" onclick="mostrarAlerta('Aquí verás el estado de tus compras en tránsito.', '🛍️ Mis compras')">
-                    🛍️ Mis compras
-                </button>
-            </div>
+            <!-- Historial de compras -->
+            <section class="seccion-perfil">
+                <h2>🛍️ Mi historial de compras</h2>
+                <div id="historialPerfil">
+                    <p>Aquí aparecerán tus compras.</p>
+                </div>
+            </section>
 
-            <!-- Regresar -->
+            <!-- Acciones -->
+            <button type="button" class="boton-perfil boton-secundario"
+                onclick="mostrarAlerta('Aquí podrás consultar el estado de tus compras en tránsito.', '🛍️ Mis compras')">
+                🛍️ Mis compras
+            </button>
+
             <a href="index.html" class="volver">
                 🏠 Volver a ValFer Cosmetic
             </a>
 
-            <!-- Cerrar sesión -->
-            <button type="button" class="boton-secundario" onclick="cerrarSesion()">🚪 Cerrar sesión</button>
+            <button type="button" class="boton-perfil boton-secundario"
+                onclick="cerrarSesion()">
+                🚪 Cerrar sesión
+            </button>
 
         </section>
     </main>
 
-    <!-- Modal de Alerta Personalizada (Diseño propio de la página) -->
-    <div id="customAlert" class="modal-overlay" style="display: none;">
-        <div class="modal-box" style="max-width: 350px;">
-            <h3 id="alertTitulo" style="color: var(--color-principal, #6a1b9a); margin-bottom: 15px;">Aviso</h3>
-            <p id="alertMensaje" style="margin-bottom: 20px; line-height: 1.5;">Mensaje</p>
-            <button type="button" class="btn" onclick="cerrarAlerta()">Aceptar</button>
+    <!-- Modal de avisos -->
+    <div id="customAlert" class="modal-overlay">
+        <div class="modal-box">
+            <h3 id="alertTitulo">Aviso</h3>
+            <p id="alertMensaje">Mensaje</p>
+            <button type="button" onclick="cerrarAlerta()">Aceptar</button>
         </div>
     </div>
 
     <script>
-function obtenerUsuario(){try{return JSON.parse(localStorage.getItem('valferUsuarioActual')||'null')}catch(e){return null}}
-function guardarPerfil(){
- const u=obtenerUsuario(); if(!u){alert('Inicia sesión para modificar tu perfil.');location.href='login.html';return;}
- u.nombre=document.getElementById('perfilNombre').value.trim()||u.nombre;
- u.telefono=document.getElementById('perfilTelefono').value.trim();
- u.direccion=document.getElementById('perfilDireccion').value.trim();
- localStorage.setItem('valferUsuarioActual',JSON.stringify(u));
- const usuarios=JSON.parse(localStorage.getItem('valferUsuarios')||'{}');
- if(usuarios[u.correo]){usuarios[u.correo].nombre=u.nombre;usuarios[u.correo].telefono=u.telefono;usuarios[u.correo].direccion=u.direccion;localStorage.setItem('valferUsuarios',JSON.stringify(usuarios));}
- document.getElementById('saludoPerfil').textContent='¡Hola, '+u.nombre+'! Aquí puedes modificar tus datos.';
- alert('Tus datos se guardaron correctamente.');
-}
-function cargarMisComentarios(){
- const u=obtenerUsuario(), cont=document.getElementById('comentariosPerfil');
- const comentarios=JSON.parse(localStorage.getItem('valferComentarios')||'[]');
- if(!u){cont.innerHTML='<p>Inicia sesión para consultar tus comentarios.</p>';return;}
- const propios=comentarios.filter(c=>c.correo===u.correo);
- if(!propios.length){cont.innerHTML='<p>Aún no has publicado comentarios. <a href="comunidad.html">Comparte tu opinión aquí.</a></p>';return;}
- cont.innerHTML=propios.slice().reverse().map(c=>`<article class="comentario-perfil"><strong>${escapeHTML(c.nombre)}</strong><div class="estrellas">${'★'.repeat(c.calificacion)}${'☆'.repeat(5-c.calificacion)}</div><p>${escapeHTML(c.texto)}</p><small>${new Date(c.fecha).toLocaleString('es-MX')}</small></article>`).join('');
-}
-function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function cerrarSesion(){localStorage.removeItem('valferUsuarioActual');location.href='index.html';}
-window.addEventListener('DOMContentLoaded',()=>{
- const u=obtenerUsuario();
- if(u){document.getElementById('perfilNombre').value=u.nombre||'';document.getElementById('perfilCorreo').value=u.correo||'';document.getElementById('perfilTelefono').value=u.telefono||'';document.getElementById('perfilDireccion').value=u.direccion||'';document.getElementById('saludoPerfil').textContent='¡Hola, '+u.nombre+'! Aquí puedes modificar tus datos.';}
- cargarMisComentarios();
-});
-</script>
+        // =====================================
+        // OBTENER USUARIO ACTUAL
+        // =====================================
+
+        function obtenerUsuarioPerfil() {
+            const claves = [
+                'valferUsuarioActual',
+                'envStarUser',
+                'valfer_usuario_actual',
+                'usuarioActual',
+                'usuario',
+                'usuarioValFer',
+                'usuario_logueado',
+                'valferUser'
+            ];
+
+            for (const clave of claves) {
+                const valor = localStorage.getItem(clave);
+                if (!valor) continue;
+
+                try {
+                    const dato = JSON.parse(valor);
+
+                    if (typeof dato === 'string') {
+                        return {
+                            nombre: dato,
+                            correo: ''
+                        };
+                    }
+
+                    if (dato && typeof dato === 'object') {
+                        return {
+                            ...dato,
+                            nombre: dato.nombre || dato.name || dato.username || '',
+                            correo: dato.correo || dato.email || localStorage.getItem('envStarCorreo') || ''
+                        };
+                    }
+                } catch {
+                    return {
+                        nombre: valor,
+                        correo: ''
+                    };
+                }
+            }
+
+            const correo = localStorage.getItem('envStarCorreo');
+            if (correo) {
+                return {
+                    nombre: correo,
+                    correo: correo
+                };
+            }
+
+            return null;
+        }
+
+        // =====================================
+        // GUARDAR PERFIL
+        // =====================================
+
+        function guardarPerfil() {
+            const usuario = obtenerUsuarioPerfil();
+
+            if (!usuario) {
+                mostrarAlerta(
+                    'Inicia sesión para modificar tu perfil.',
+                    'Aviso'
+                );
+                return;
+            }
+
+            usuario.nombre =
+                document.getElementById('perfilNombre').value.trim() ||
+                usuario.nombre;
+
+            usuario.telefono =
+                document.getElementById('perfilTelefono').value.trim();
+
+            usuario.direccion =
+                document.getElementById('perfilDireccion').value.trim();
+
+            // Guardar en las claves utilizadas por el proyecto
+            localStorage.setItem(
+                'valferUsuarioActual',
+                JSON.stringify(usuario)
+            );
+
+            localStorage.setItem(
+                'envStarUser',
+                JSON.stringify(usuario)
+            );
+
+            // Actualizar también el registro general de usuarios
+            const usuarios = JSON.parse(
+                localStorage.getItem('valferUsuarios') || '{}'
+            );
+
+            if (usuario.correo && usuarios[usuario.correo]) {
+                usuarios[usuario.correo].nombre = usuario.nombre;
+                usuarios[usuario.correo].telefono = usuario.telefono;
+                usuarios[usuario.correo].direccion = usuario.direccion;
+
+                localStorage.setItem(
+                    'valferUsuarios',
+                    JSON.stringify(usuarios)
+                );
+            }
+
+            document.getElementById('saludoPerfil').textContent =
+                '¡Hola, ' + usuario.nombre + '! Aquí puedes modificar tus datos.';
+
+            mostrarAlerta(
+                'Tus datos se guardaron correctamente.',
+                '¡Perfil actualizado! 💜'
+            );
+        }
+
+        // =====================================
+        // CARGAR DATOS DEL PERFIL
+        // =====================================
+
+        function cargarPerfil() {
+            const usuario = obtenerUsuarioPerfil();
+
+            if (!usuario) {
+                document.getElementById('saludoPerfil').textContent =
+                    'Inicia sesión para consultar tus datos.';
+
+                return;
+            }
+
+            document.getElementById('perfilNombre').value =
+                usuario.nombre || '';
+
+            document.getElementById('perfilCorreo').value =
+                usuario.correo || '';
+
+            document.getElementById('perfilTelefono').value =
+                usuario.telefono || '';
+
+            document.getElementById('perfilDireccion').value =
+                usuario.direccion || '';
+
+            document.getElementById('saludoPerfil').textContent =
+                '¡Hola, ' + (usuario.nombre || 'cliente') +
+                '! Aquí puedes modificar tus datos.';
+        }
+
+        // =====================================
+        // OBTENER COMENTARIOS Y RESEÑAS
+        // =====================================
+
+        function obtenerComentarios() {
+            const claves = [
+                'valferComentarios',
+                'valfer_comentarios',
+                'comentarios',
+                'resenas'
+            ];
+
+            const resultado = [];
+
+            claves.forEach(clave => {
+                try {
+                    const datos = JSON.parse(
+                        localStorage.getItem(clave) || '[]'
+                    );
+
+                    if (Array.isArray(datos)) {
+                        datos.forEach(comentario => {
+                            if (!resultado.some(c =>
+                                c === comentario
+                            )) {
+                                resultado.push(comentario);
+                            }
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error al leer comentarios:', error);
+                }
+            });
+
+            return resultado;
+        }
+
+        // =====================================
+        // MOSTRAR MIS RESEÑAS
+        // =====================================
+
+        function mostrarMisResenas() {
+            const contenedor =
+                document.getElementById('perfilMisResenas');
+
+            const usuario = obtenerUsuarioPerfil();
+            const comentarios = obtenerComentarios();
+
+            contenedor.innerHTML = '';
+
+            if (!usuario) {
+                contenedor.textContent =
+                    'Inicia sesión para consultar tus reseñas. 💜';
+                return;
+            }
+
+            const correo = String(usuario.correo || '')
+                .trim().toLowerCase();
+
+            const nombre = String(usuario.nombre || '')
+                .trim().toLowerCase();
+
+            const propias = comentarios.filter(com => {
+                const correoComentario = String(
+                    com.correo || com.email || ''
+                ).trim().toLowerCase();
+
+                const nombreComentario = String(
+                    com.nombre || ''
+                ).trim().toLowerCase();
+
+                const idUsuario = String(
+                    com.usuarioId || ''
+                ).trim().toLowerCase();
+
+                return (
+                    (correo && correoComentario === correo) ||
+                    (nombre && nombreComentario === nombre) ||
+                    (usuario.id && idUsuario === String(usuario.id).toLowerCase())
+                );
+            });
+
+            if (!propias.length) {
+                contenedor.textContent =
+                    'Aún no has publicado reseñas. Cuando compartas una opinión en Comunidad, aparecerá aquí. 💜';
+                return;
+            }
+
+            propias.forEach(com => {
+                const tarjeta = document.createElement('article');
+                tarjeta.className = 'tarjeta-resena';
+
+                const autor = document.createElement('strong');
+                autor.textContent = com.nombre || 'Mi reseña';
+
+                const estrellas = document.createElement('div');
+                estrellas.className = 'estrellas';
+
+                const calificacion = Math.min(
+                    5,
+                    Math.max(0, Number(com.calificacion) || 0)
+                );
+
+                estrellas.textContent =
+                    '★'.repeat(calificacion) +
+                    '☆'.repeat(5 - calificacion);
+
+                const texto = document.createElement('p');
+                texto.textContent = com.texto || '';
+
+                const fecha = document.createElement('small');
+                fecha.textContent = com.fecha || '';
+
+                tarjeta.append(autor, estrellas, texto, fecha);
+                contenedor.appendChild(tarjeta);
+            });
+        }
+
+        // =====================================
+        // MOSTRAR MIS COMENTARIOS
+        // =====================================
+
+        function mostrarMisComentarios() {
+            const contenedor =
+                document.getElementById('comentariosPerfil');
+
+            const usuario = obtenerUsuarioPerfil();
+            const comentarios = obtenerComentarios();
+
+            contenedor.innerHTML = '';
+
+            if (!usuario) {
+                contenedor.textContent =
+                    'Inicia sesión para consultar tus comentarios.';
+                return;
+            }
+
+            const correo = String(usuario.correo || '')
+                .trim().toLowerCase();
+
+            const nombre = String(usuario.nombre || '')
+                .trim().toLowerCase();
+
+            const propios = comentarios.filter(com => {
+                const correoComentario = String(
+                    com.correo || com.email || ''
+                ).trim().toLowerCase();
+
+                const nombreComentario = String(
+                    com.nombre || ''
+                ).trim().toLowerCase();
+
+                return (
+                    (correo && correoComentario === correo) ||
+                    (!correo && nombre && nombreComentario === nombre)
+                );
+            });
+
+            if (!propios.length) {
+                const mensaje = document.createElement('p');
+                mensaje.textContent = 'Aún no has publicado comentarios. ';
+
+                const enlace = document.createElement('a');
+                enlace.href = 'comunidad.html';
+                enlace.textContent = 'Comparte tu opinión aquí.';
+
+                mensaje.appendChild(enlace);
+                contenedor.appendChild(mensaje);
+                return;
+            }
+
+            propios.slice().reverse().forEach(com => {
+                const tarjeta = document.createElement('article');
+                tarjeta.className = 'comentario-perfil';
+
+                const autor = document.createElement('strong');
+                autor.textContent = com.nombre || 'Usuario';
+
+                const estrellas = document.createElement('div');
+                estrellas.className = 'estrellas';
+
+                const n = Math.min(
+                    5,
+                    Math.max(0, Number(com.calificacion) || 0)
+                );
+
+                estrellas.textContent =
+                    '★'.repeat(n) + '☆'.repeat(5 - n);
+
+                const texto = document.createElement('p');
+                texto.textContent = com.texto || '';
+
+                const fecha = document.createElement('small');
+                fecha.textContent = com.fecha || '';
+
+                tarjeta.append(autor, estrellas, texto, fecha);
+                contenedor.appendChild(tarjeta);
+            });
+        }
+
+        // =====================================
+        // MOSTRAR HISTORIAL DE COMPRAS
+        // =====================================
+
+        function mostrarHistorial() {
+            const contenedor =
+                document.getElementById('historialPerfil');
+
+            const usuario = obtenerUsuarioPerfil();
+
+            let compras = [];
+
+            try {
+                compras = JSON.parse(
+                    localStorage.getItem('historialCompras') || '[]'
+                );
+            } catch {
+                compras = [];
+            }
+
+            if (!usuario) {
+                contenedor.textContent =
+                    'Inicia sesión para consultar tus compras.';
+                return;
+            }
+
+            const correo = String(usuario.correo || '')
+                .trim().toLowerCase();
+
+            const propias = compras.filter(compra =>
+                String(compra.correoUsuario || compra.correo || '')
+                    .trim().toLowerCase() === correo
+            );
+
+            contenedor.innerHTML = '';
+
+            if (!propias.length) {
+                contenedor.textContent =
+                    'Todavía no tienes compras registradas. 💜';
+                return;
+            }
+
+            propias.slice().reverse().forEach(compra => {
+                const tarjeta = document.createElement('article');
+                tarjeta.className = 'compra-perfil';
+
+                const folio = document.createElement('strong');
+                folio.textContent =
+                    'Compra: ' + (compra.folio || 'Sin folio');
+
+                const fecha = document.createElement('p');
+                fecha.textContent =
+                    'Fecha: ' + (compra.fecha || 'No disponible');
+
+                const total = document.createElement('p');
+                total.textContent =
+                    'Total: $' + Number(compra.total || 0).toFixed(2);
+
+                const boton = document.createElement('button');
+                boton.type = 'button';
+                boton.className = 'boton-perfil';
+                boton.textContent = 'Ver detalles de compra';
+
+                boton.addEventListener('click', () => {
+                    mostrarDetallesCompra(compra);
+                });
+
+                tarjeta.append(folio, fecha, total, boton);
+                contenedor.appendChild(tarjeta);
+            });
+        }
+
+        // =====================================
+        // DETALLES DE COMPRA
+        // =====================================
+
+        function mostrarDetallesCompra(compra) {
+            const articulos = Array.isArray(compra.articulos)
+                ? compra.articulos.map(item =>
+                    `${item.nombre || 'Producto'} x${item.cantidad || 1}`
+                ).join('\n')
+                : 'No hay detalles de artículos disponibles.';
+
+            mostrarAlerta(
+                'Folio: ' + (compra.folio || 'No disponible') +
+                '\nFecha: ' + (compra.fecha || 'No disponible') +
+                '\nMétodo de pago: ' + (compra.metodo || 'No disponible') +
+                '\nDirección: ' + (compra.direccion || 'No disponible') +
+                '\nArtículos: ' + articulos +
+                '\nTotal: $' + Number(compra.total || 0).toFixed(2),
+                'Detalle de compra 🛍️'
+            );
+        }
+
+        // =====================================
+        // MODAL DE AVISOS
+        // =====================================
+
+        function mostrarAlerta(mensaje, titulo = 'Aviso') {
+            document.getElementById('alertTitulo').textContent = titulo;
+            document.getElementById('alertMensaje').textContent = mensaje;
+            document.getElementById('customAlert').style.display = 'flex';
+        }
+
+        function cerrarAlerta() {
+            document.getElementById('customAlert').style.display = 'none';
+        }
+
+        // =====================================
+        // CERRAR SESIÓN
+        // =====================================
+
+        function cerrarSesion() {
+            mostrarAlerta(
+                '¿Estás seguro de que deseas cerrar sesión?',
+                'Cerrar sesión'
+            );
+
+            const modal = document.getElementById('customAlert');
+            const boton = modal.querySelector('button');
+
+            boton.textContent = 'Sí, cerrar sesión';
+            boton.onclick = confirmarCierreSesion;
+        }
+
+        function confirmarCierreSesion() {
+            localStorage.removeItem('valferUsuarioActual');
+            localStorage.removeItem('envStarUser');
+            localStorage.removeItem('envStarCorreo');
+            localStorage.removeItem('usuarioActivo');
+
+            location.href = 'index.html';
+        }
+
+        // =====================================
+        // INICIAR PERFIL
+        // =====================================
+
+        window.addEventListener('DOMContentLoaded', () => {
+            cargarPerfil();
+            mostrarMisResenas();
+            mostrarMisComentarios();
+            mostrarHistorial();
+        });
+    </script>
+
 </body>
 </html>
