@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -10,6 +9,82 @@
 
     <!-- Conexión con nuestra hoja de estilos -->
     <link rel="stylesheet" href="estilos.css">
+
+    <style>
+        .alerta-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            justify-content: center;
+            align-items: center;
+            z-index: 12000;
+            padding: 16px;
+        }
+
+        .alerta-overlay.activa {
+            display: flex;
+        }
+
+        .alerta-caja {
+            background: #ffffff;
+            color: #222222;
+            padding: 24px;
+            border-radius: 16px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+        }
+
+        .alerta-caja h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #d63384;
+        }
+
+        .alerta-caja p {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .badge-promo {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            background: #fce7f3;
+            color: #be185d;
+        }
+
+        .badge-oferta {
+            display: inline-block;
+            margin-top: 6px;
+            margin-left: 6px;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            background: #f3e8ff;
+            color: #7e22ce;
+        }
+
+        .precio-tachado {
+            text-decoration: line-through;
+            color: #888888;
+            font-size: 0.85rem;
+            margin-right: 6px;
+        }
+
+        .ahorro-texto {
+            color: #15803d;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,7 +95,6 @@
 
     <header class="encabezado">
 
-        <!-- Logo y nombre del negocio -->
         <a href="index.html" class="logo-container">
 
             <img src="img/valfer logo.jpeg"
@@ -31,7 +105,6 @@
 
         </a>
 
-        <!-- Menú de navegación -->
         <nav>
             <a href="index.html">Inicio</a>
             <a href="catalogo.html">Catálogo</a>
@@ -62,8 +135,10 @@
                     (<span id="resumen-cantidad-total">0</span> artículos)
                 </h3>
 
-                <!-- Aquí aparecen los productos -->
+                <!-- Aquí aparecen los productos con su promoción y oferta -->
                 <div id="lista-carrito-resumen"></div>
+
+                <p id="resumen-ahorro" class="ahorro-texto" style="display:none;"></p>
 
                 <p class="total">
                     Total a pagar:
@@ -133,152 +208,57 @@
                     $<span id="total-pago-paso2">0.00</span> MXN
                 </p>
 
-
-                <!-- PAGO CON TARJETA -->
-
                 <label class="opcion-pago">
-
-                    <input
-                        type="radio"
-                        name="pago"
-                        value="tarjeta"
-                        onchange="mostrarDetallesPago('tarjeta')"
-                    >
-
+                    <input type="radio" name="pago" value="tarjeta" onchange="mostrarDetallesPago('tarjeta')">
                     💳 Tarjeta de Crédito / Débito
-
                 </label>
 
                 <div id="form-tarjeta" class="detalles-pago" style="display:none;">
-
                     <input type="text" placeholder="Nombre en la tarjeta">
-
-                    <input
-                        type="text"
-                        placeholder="Número de tarjeta (0000 0000 0000 0000)"
-                        maxlength="19"
-                    >
-
+                    <input type="text" placeholder="Número de tarjeta (0000 0000 0000 0000)" maxlength="19">
                     <div class="fila">
-
                         <input type="text" placeholder="MM/AA">
-
                         <input type="password" placeholder="CVV" maxlength="3">
-
                     </div>
-
-                    <p class="nota">
-                        Simulación académica. No introduzcas datos reales.
-                    </p>
-
+                    <p class="nota">Simulación académica. No introduzcas datos reales.</p>
                 </div>
 
-
-                <!-- TRANSFERENCIA -->
-
                 <label class="opcion-pago">
-
-                    <input
-                        type="radio"
-                        name="pago"
-                        value="transferencia"
-                        onchange="mostrarDetallesPago('transferencia')"
-                    >
-
+                    <input type="radio" name="pago" value="transferencia" onchange="mostrarDetallesPago('transferencia')">
                     🏦 Transferencia SPEI
-
                 </label>
 
                 <div id="form-transferencia" class="detalles-pago" style="display:none;">
-
-                    <p>
-                        <strong>Datos de ejemplo:</strong>
-                        Transferencia bancaria simulada.
-                    </p>
-
+                    <p><strong>Datos de ejemplo:</strong> Transferencia bancaria simulada.</p>
                 </div>
 
-
-                <!-- E-WALLET -->
-
                 <label class="opcion-pago">
-
-                    <input
-                        type="radio"
-                        name="pago"
-                        value="ewallet"
-                        onchange="mostrarDetallesPago('ewallet')"
-                    >
-
+                    <input type="radio" name="pago" value="ewallet" onchange="mostrarDetallesPago('ewallet')">
                     📱 E-Wallet
-
                 </label>
 
                 <div id="form-ewallet" class="detalles-pago" style="display:none;">
-
-                    <p>
-                        Saldo disponible de ejemplo:
-                        <strong>$1,000.00 MXN</strong>
-                    </p>
-
-                    <p>
-                        Se descontarán:
-                        $<span id="total-ewallet">0.00</span> MXN.
-                    </p>
-
+                    <p>Saldo disponible de ejemplo: <strong>$1,000.00 MXN</strong></p>
+                    <p>Se descontarán: $<span id="total-ewallet">0.00</span> MXN.</p>
                 </div>
 
-
-                <!-- PAGO EN EFECTIVO -->
-
                 <label class="opcion-pago">
-
-                    <input
-                        type="radio"
-                        name="pago"
-                        value="efectivo"
-                        onchange="mostrarDetallesPago('efectivo')"
-                    >
-
+                    <input type="radio" name="pago" value="efectivo" onchange="mostrarDetallesPago('efectivo')">
                     💵 Pago en efectivo
-
                 </label>
 
                 <div id="form-efectivo" class="detalles-pago" style="display:none;">
-
-                    <p>
-                        Al confirmar tu pedido se generará un folio
-                        para identificar tu compra.
-                    </p>
-
-                    <p>
-                        Total:
-                        $<span id="total-efectivo">0.00</span> MXN.
-                    </p>
-
+                    <p>Al confirmar tu pedido se generará un folio para identificar tu compra.</p>
+                    <p>Total: $<span id="total-efectivo">0.00</span> MXN.</p>
                 </div>
 
-
-                <!-- BOTONES -->
-
                 <div class="botones-pago">
-
-                    <button
-                        type="button"
-                        class="btn btn-secundario"
-                        onclick="irPaso1()"
-                    >
+                    <button type="button" class="btn btn-secundario" onclick="irPaso1()">
                         ⬅️ Regresar
                     </button>
-
-                    <button
-                        type="button"
-                        class="btn"
-                        onclick="procesarPago()"
-                    >
+                    <button type="button" class="btn" onclick="procesarPago()">
                         Pagar y Confirmar 💜
                     </button>
-
                 </div>
 
             </div>
@@ -289,18 +269,10 @@
                  ================================= -->
 
             <div id="paso-procesando" style="display:none;">
-
                 <div class="procesando">
-
                     <h3>✨ Procesando tu compra...</h3>
-
-                    <p>
-                        Estamos preparando tu comprobante.
-                        Por favor espera un momento.
-                    </p>
-
+                    <p>Estamos preparando tu comprobante. Por favor espera un momento.</p>
                 </div>
-
             </div>
 
 
@@ -314,70 +286,42 @@
 
                     <h2>💜 ValFer Cosmetic</h2>
 
-                    <p id="ticket-estado" class="estado">
-                        ¡Compra registrada!
-                    </p>
+                    <p id="ticket-estado" class="estado">¡Compra registrada!</p>
 
                     <div class="folio">
-
                         <strong>Folio:</strong>
-
                         <span id="ticket-folio"></span>
-
                         <br>
-
-                        <small>
-                            Fecha:
-                            <span id="ticket-fecha"></span>
-                        </small>
-
+                        <small>Fecha: <span id="ticket-fecha"></span></small>
                     </div>
 
                     <hr>
 
-                    <p>
-                        <strong>Cliente:</strong>
-                        <span id="ticket-cliente"></span>
-                    </p>
-
-                    <p>
-                        <strong>Dirección:</strong>
-                        <span id="ticket-direccion"></span>
-                    </p>
-
-                    <p>
-                        <strong>Método de pago:</strong>
-                        <span id="ticket-metodo"></span>
-                    </p>
+                    <p><strong>Cliente:</strong> <span id="ticket-cliente"></span></p>
+                    <p><strong>Dirección:</strong> <span id="ticket-direccion"></span></p>
+                    <p><strong>Método de pago:</strong> <span id="ticket-metodo"></span></p>
 
                     <p id="ticket-nota-efectivo" style="display:none;">
-                        💵 Conserva tu folio para identificar
-                        tu pago en efectivo.
+                        💵 Conserva tu folio para identificar tu pago en efectivo.
                     </p>
 
                     <hr>
 
                     <p><strong>Productos:</strong></p>
-
                     <div id="ticket-articulos-lista"></div>
 
                     <h3 class="total">
-                        Total:
-                        $<span id="ticket-total-monto">0.00</span> MXN
+                        Total: $<span id="ticket-total-monto">0.00</span> MXN
                     </h3>
 
                 </div>
 
-
-                <!-- BOTONES DEL COMPROBANTE -->
-
                 <div class="botones-pago">
-
                     <button
                         type="button"
                         id="btn-descargar-pdf"
                         class="btn btn-secundario"
-                        onclick="alert('La descarga PDF es una función simulada 📄')"
+                        onclick="mostrarAlertaPagina('La descarga PDF es una función simulada 📄', 'Comprobante PDF')"
                     >
                         📥 Descargar PDF
                     </button>
@@ -389,7 +333,6 @@
                     >
                         Ver en Mis Compras
                     </button>
-
                 </div>
 
             </div>
@@ -400,18 +343,38 @@
 
 
     <!-- =================================
+         ALERTA INTEGRADA EN LA PÁGINA
+         ================================= -->
+
+    <div
+        id="alertaPagina"
+        class="alerta-overlay"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="alertaPaginaTitulo"
+    >
+        <div class="alerta-caja">
+            <h3 id="alertaPaginaTitulo">Aviso</h3>
+            <p id="alertaPaginaMensaje"></p>
+            <button
+                type="button"
+                id="alertaPaginaBtn"
+                class="btn"
+                onclick="cerrarAlertaPagina()"
+            >
+                Aceptar
+            </button>
+        </div>
+    </div>
+
+
+    <!-- =================================
          PIE DE PÁGINA
          ================================= -->
 
     <footer>
-
         <p>© 2026 ValFer Cosmetic</p>
-
-        <p>
-            Gracias por elegirnos.
-            ¡Esperamos que disfrutes tu compra! 💜
-        </p>
-
+        <p>Gracias por elegirnos. ¡Esperamos que disfrutes tu compra! 💜</p>
     </footer>
 
 
@@ -422,109 +385,170 @@
 
     <script>
 
-        // Variables principales
         let carritoGlobal = [];
         let totalGlobal = 0;
+        let ahorroGlobal = 0;
+        let accionAlCerrarAlerta = null;
 
-        // Datos del pedido
+        // Catálogo base de promociones y ofertas por nombre de producto
+        const PROMOS_POR_PRODUCTO = {
+            "Rubor Rosa": {
+                ofertaTexto: "Oferta especial",
+                promocionTexto: "15% de descuento aplicado",
+                descuentoPorcentaje: 15
+            },
+            "Set de regalo": {
+                ofertaTexto: "Especial de temporada",
+                promocionTexto: "10% de descuento aplicado",
+                descuentoPorcentaje: 10
+            },
+            "Labial Rosa": {
+                ofertaTexto: "Promo lanzamiento",
+                promocionTexto: "2x1 o 10% en compra directa",
+                descuentoPorcentaje: 10
+            }
+        };
+
         let datosPedido = {
-
             folio: 'VF-' + Math.floor(Math.random() * 90000 + 10000),
-
-            fecha: new Date().toLocaleDateString() +
-                   ' ' +
-                   new Date().toLocaleTimeString(),
-
+            fecha: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
             cliente: '',
             direccion: '',
             metodo: '',
             total: 0,
+            ahorro: 0,
             articulos: ''
-
         };
 
+        function mostrarAlertaPagina(mensaje, titulo = 'ValFer Cosmetic', alCerrar = null) {
+            document.getElementById('alertaPaginaTitulo').innerText = titulo;
+            document.getElementById('alertaPaginaMensaje').innerText = mensaje;
+            accionAlCerrarAlerta = typeof alCerrar === 'function' ? alCerrar : null;
+            document.getElementById('alertaPagina').classList.add('activa');
+            document.getElementById('alertaPaginaBtn').focus();
+        }
 
-        // CARGAR PRODUCTOS DEL CARRITO
+        function cerrarAlertaPagina() {
+            document.getElementById('alertaPagina').classList.remove('activa');
+            const callback = accionAlCerrarAlerta;
+            accionAlCerrarAlerta = null;
+            if (callback) {
+                callback();
+            }
+        }
 
-        function cargarYRenderizarCheckout() {
+        function enriquecerItemConPromo(item) {
+            const basePromo = PROMOS_POR_PRODUCTO[item.nombre] || {};
+            const precioOriginal = Number(item.precioOriginal) || Number(item.precio) || 0;
+            const descuentoPorcentaje = Number(item.descuentoPorcentaje) || Number(basePromo.descuentoPorcentaje) || 0;
 
-            const guardado = JSON.parse(
-                localStorage.getItem('carritoEnvStar') || '[]'
-            );
+            const oferta = item.oferta || item.etiqueta || basePromo.ofertaTexto || '';
+            const promocion = item.promocion || basePromo.promocionTexto || '';
 
-            carritoGlobal = Array.isArray(guardado)
-                ? guardado.map(item => ({
-
-                    nombre: item.nombre,
-
-                    precio: Number(item.precio) || 0,
-
-                    img: item.img || '',
-
-                    cantidad: Math.max(
-                        1,
-                        parseInt(item.cantidad, 10) || 1
-                    )
-
-                }))
-                : [];
-
-
-            // Comprobar si el carrito está vacío
-
-            if (carritoGlobal.length === 0) {
-
-                alert('Tu carrito está vacío. Regresando al catálogo.');
-
-                window.location.href = 'catalogo.html';
-
-                return;
-
+            let precioFinal = Number(item.precio) || 0;
+            if (descuentoPorcentaje > 0 && precioOriginal > 0) {
+                precioFinal = Number((precioOriginal * (1 - descuentoPorcentaje / 100)).toFixed(2));
             }
 
+            return {
+                nombre: item.nombre,
+                precioOriginal: precioOriginal,
+                precio: precioFinal,
+                descuentoPorcentaje: descuentoPorcentaje,
+                oferta: oferta,
+                promocion: promocion,
+                img: item.img || item.icono || '',
+                cantidad: Math.max(1, parseInt(item.cantidad, 10) || 1)
+            };
+        }
+
+        function leerCarritoGuardado() {
+            // Lee las claves usadas en el checkout o en el catálogo
+            const rawCarrito =
+                localStorage.getItem('carritoEnvStar') ||
+                localStorage.getItem('valfer_carrito');
+
+            if (rawCarrito) {
+                const parsed = JSON.parse(rawCarrito);
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    return parsed.map(enriquecerItemConPromo);
+                }
+            }
+
+            const rawResumen = localStorage.getItem('valfer_checkout_resumen');
+            if (rawResumen) {
+                const resumen = JSON.parse(rawResumen);
+                if (resumen && Array.isArray(resumen.items) && resumen.items.length > 0) {
+                    return resumen.items.map(enriquecerItemConPromo);
+                }
+            }
+
+            return [];
+        }
+
+        function cargarYRenderizarCheckout() {
+            try {
+                carritoGlobal = leerCarritoGuardado();
+            } catch (e) {
+                carritoGlobal = [];
+            }
+
+            if (carritoGlobal.length === 0) {
+                mostrarAlertaPagina(
+                    'Tu carrito está vacío. Regresando al catálogo.',
+                    'Carrito vacío',
+                    () => {
+                        window.location.href = 'catalogo.html';
+                    }
+                );
+                return;
+            }
 
             totalGlobal = 0;
-
+            ahorroGlobal = 0;
             let totalArticulos = 0;
-
             let htmlResumen = '';
-
             let listaTexto = [];
 
-
-            // Recorrer todos los productos
-
             carritoGlobal.forEach((item, index) => {
+                const subFinal = item.precio * item.cantidad;
+                const subOriginal = item.precioOriginal * item.cantidad;
+                const ahorroItem = Math.max(0, subOriginal - subFinal);
 
-                const sub = item.precio * item.cantidad;
-
-                totalGlobal += sub;
-
+                totalGlobal += subFinal;
+                ahorroGlobal += ahorroItem;
                 totalArticulos += item.cantidad;
 
+                const etiquetasPromo = [
+                    item.oferta ? `🏷️ Oferta: ${item.oferta}` : '',
+                    item.promocion ? `🎁 Promo: ${item.promocion}` : ''
+                ].filter(Boolean).join(' · ');
+
                 listaTexto.push(
-                    `${item.cantidad}x ${item.nombre}`
+                    etiquetasPromo
+                        ? `${item.cantidad}x ${item.nombre} (${etiquetasPromo})`
+                        : `${item.cantidad}x ${item.nombre}`
                 );
 
+                const precioHtml = ahorroItem > 0
+                    ? `<span class="precio-tachado">$${item.precioOriginal.toFixed(2)}</span><strong>$${item.precio.toFixed(2)}</strong> c/u`
+                    : `$${item.precio.toFixed(2)} c/u`;
+
+                const badgesHtml = `
+                    ${item.oferta ? `<span class="badge-oferta">🏷️ ${item.oferta}</span>` : ''}
+                    ${item.promocion ? `<span class="badge-promo">🎁 ${item.promocion}</span>` : ''}
+                `;
 
                 htmlResumen += `
-
                     <div class="cart-item">
-
                         <div>
-
-                            <strong>${item.nombre}</strong>
-
+                            <strong>${item.img ? item.img + ' ' : ''}${item.nombre}</strong>
                             <br>
-
-                            <small>
-                                $${item.precio.toFixed(2)} c/u
-                            </small>
-
+                            <small>${precioHtml}</small>
+                            ${badgesHtml ? `<div>${badgesHtml}</div>` : ''}
                         </div>
 
                         <div class="cart-item-acciones">
-
                             <button
                                 type="button"
                                 onclick="actualizarCantidadCheckout(${index}, -1)"
@@ -538,7 +562,7 @@
                             >+</button>
 
                             <strong>
-                                $${sub.toFixed(2)}
+                                $${subFinal.toFixed(2)}
                             </strong>
 
                             <button
@@ -548,127 +572,70 @@
                             >
                                 🗑️
                             </button>
-
                         </div>
-
                     </div>
-
                 `;
-
             });
 
+            document.getElementById('resumen-cantidad-total').innerText = totalArticulos;
+            document.getElementById('lista-carrito-resumen').innerHTML = htmlResumen;
+            document.getElementById('total-a-pagar').innerText = totalGlobal.toFixed(2);
+            document.getElementById('total-pago-paso2').innerText = totalGlobal.toFixed(2);
+            document.getElementById('total-ewallet').innerText = totalGlobal.toFixed(2);
+            document.getElementById('total-efectivo').innerText = totalGlobal.toFixed(2);
 
-            // Actualizar cantidades y totales
-
-            document.getElementById(
-                'resumen-cantidad-total'
-            ).innerText = totalArticulos;
-
-            document.getElementById(
-                'lista-carrito-resumen'
-            ).innerHTML = htmlResumen;
-
-            document.getElementById(
-                'total-a-pagar'
-            ).innerText = totalGlobal.toFixed(2);
-
-            document.getElementById(
-                'total-pago-paso2'
-            ).innerText = totalGlobal.toFixed(2);
-
-            document.getElementById(
-                'total-ewallet'
-            ).innerText = totalGlobal.toFixed(2);
-
-            document.getElementById(
-                'total-efectivo'
-            ).innerText = totalGlobal.toFixed(2);
-
-
-            datosPedido.total = totalGlobal;
-
-            datosPedido.articulos = listaTexto.join(', ');
-
-        }
-
-
-        // AUMENTAR O DISMINUIR CANTIDAD
-
-        function actualizarCantidadCheckout(index, delta) {
-
-            const nueva =
-                carritoGlobal[index].cantidad + delta;
-
-            if (nueva >= 1) {
-
-                carritoGlobal[index].cantidad = nueva;
-
-                localStorage.setItem(
-                    'carritoEnvStar',
-                    JSON.stringify(carritoGlobal)
-                );
-
-                cargarYRenderizarCheckout();
-
+            const ahorroEl = document.getElementById('resumen-ahorro');
+            if (ahorroGlobal > 0) {
+                ahorroEl.style.display = 'block';
+                ahorroEl.innerText = `✨ Ahorro por promociones y ofertas: $${ahorroGlobal.toFixed(2)} MXN`;
+            } else {
+                ahorroEl.style.display = 'none';
             }
 
+            datosPedido.total = totalGlobal;
+            datosPedido.ahorro = ahorroGlobal;
+            datosPedido.articulos = listaTexto.join(', ');
         }
 
+        function actualizarCantidadCheckout(index, delta) {
+            const nueva = carritoGlobal[index].cantidad + delta;
 
-        // ELIMINAR PRODUCTO
+            if (nueva >= 1) {
+                carritoGlobal[index].cantidad = nueva;
+                localStorage.setItem('carritoEnvStar', JSON.stringify(carritoGlobal));
+                cargarYRenderizarCheckout();
+            }
+        }
 
         function eliminarArticuloCheckout(index) {
-
             carritoGlobal.splice(index, 1);
-
-            localStorage.setItem(
-                'carritoEnvStar',
-                JSON.stringify(carritoGlobal)
-            );
+            localStorage.setItem('carritoEnvStar', JSON.stringify(carritoGlobal));
 
             if (carritoGlobal.length === 0) {
-
-                alert('Tu carrito está vacío.');
-
-                window.location.href = 'catalogo.html';
-
+                mostrarAlertaPagina(
+                    'Tu carrito está vacío.',
+                    'Carrito vacío',
+                    () => {
+                        window.location.href = 'catalogo.html';
+                    }
+                );
                 return;
-
             }
 
             cargarYRenderizarCheckout();
-
         }
 
-
-        // CARGAR AL ABRIR LA PÁGINA
-
-        document.addEventListener(
-            'DOMContentLoaded',
-            cargarYRenderizarCheckout
-        );
-
-
-        // REGRESAR AL PASO 1
+        document.addEventListener('DOMContentLoaded', cargarYRenderizarCheckout);
 
         function irPaso1() {
-
             document.getElementById('paso-2').style.display = 'none';
-
             document.getElementById('paso-1').style.display = 'block';
-
         }
 
-
-        // CONTINUAR AL PASO 2
-
         function irPaso2(event) {
-
             event.preventDefault();
 
-            datosPedido.cliente =
-                document.getElementById('envio-nombre').value;
-
+            datosPedido.cliente = document.getElementById('envio-nombre').value;
             datosPedido.direccion =
                 document.getElementById('envio-calle').value +
                 ', ' +
@@ -676,221 +643,111 @@
                 ', C.P. ' +
                 document.getElementById('envio-cp').value;
 
-
             document.getElementById('paso-1').style.display = 'none';
-
             document.getElementById('paso-2').style.display = 'block';
-
         }
-
-
-        // MOSTRAR DETALLES DEL MÉTODO DE PAGO
 
         function mostrarDetallesPago(metodo) {
-
             document.getElementById('form-tarjeta').style.display = 'none';
-
             document.getElementById('form-transferencia').style.display = 'none';
-
             document.getElementById('form-ewallet').style.display = 'none';
-
             document.getElementById('form-efectivo').style.display = 'none';
 
-
-            document.getElementById(
-                `form-${metodo}`
-            ).style.display = 'block';
-
-
+            document.getElementById(`form-${metodo}`).style.display = 'block';
             datosPedido.metodo = metodo.toUpperCase();
-
         }
 
-
-        // PROCESAR COMPRA SIMULADA
-
         function procesarPago() {
-
-            const seleccionado =
-                document.querySelector(
-                    'input[name="pago"]:checked'
-                );
-
+            const seleccionado = document.querySelector('input[name="pago"]:checked');
 
             if (!seleccionado) {
-
-                alert('Selecciona un método de pago para continuar.');
-
+                mostrarAlertaPagina(
+                    'Selecciona un método de pago para continuar.',
+                    'Método de pago'
+                );
                 return;
-
             }
 
-
-            // Comprobar el saldo de ejemplo
-
-            if (
-                datosPedido.metodo === 'EWALLET' &&
-                totalGlobal > 1000
-            ) {
-
-                alert('No tienes suficiente saldo disponible.');
-
+            if (datosPedido.metodo === 'EWALLET' && totalGlobal > 1000) {
+                mostrarAlertaPagina(
+                    'No tienes suficiente saldo disponible.',
+                    'Saldo insuficiente'
+                );
                 return;
-
             }
-
 
             document.getElementById('paso-2').style.display = 'none';
-
             document.getElementById('paso-procesando').style.display = 'block';
 
-
-            // Simular procesamiento
-
             setTimeout(() => {
-
                 let htmlTicketProductos = '';
 
-
                 carritoGlobal.forEach(item => {
-
                     const sub = item.precio * item.cantidad;
+                    const detallePromo = [
+                        item.oferta ? `Oferta: ${item.oferta}` : '',
+                        item.promocion ? `Promo: ${item.promocion}` : ''
+                    ].filter(Boolean).join(' · ');
 
                     htmlTicketProductos += `
-
                         <div class="cart-item">
-
-                            <span>
-                                ${item.cantidad}x ${item.nombre}
-                            </span>
-
-                            <strong>
-                                $${sub.toFixed(2)}
-                            </strong>
-
+                            <div>
+                                <span>${item.cantidad}x ${item.nombre}</span>
+                                ${detallePromo ? `<br><small>${detallePromo}</small>` : ''}
+                            </div>
+                            <strong>$${sub.toFixed(2)}</strong>
                         </div>
-
                     `;
-
                 });
 
-
-                const esEfectivo =
-                    datosPedido.metodo === 'EFECTIVO';
-
+                const esEfectivo = datosPedido.metodo === 'EFECTIVO';
 
                 const nombresMetodo = {
-
                     TARJETA: 'Tarjeta de Crédito / Débito',
-
                     TRANSFERENCIA: 'Transferencia SPEI',
-
                     EWALLET: 'Saldo E-Wallet',
-
                     EFECTIVO: 'Pago en efectivo'
-
                 };
 
-
-                // Mostrar información del comprobante
-
-                document.getElementById(
-                    'ticket-estado'
-                ).innerText = esEfectivo
+                document.getElementById('ticket-estado').innerText = esEfectivo
                     ? '¡Pedido registrado! Folio generado'
                     : '¡Compra simulada aprobada!';
 
+                document.getElementById('ticket-folio').innerText = datosPedido.folio;
+                document.getElementById('ticket-fecha').innerText = datosPedido.fecha;
+                document.getElementById('ticket-cliente').innerText = datosPedido.cliente;
+                document.getElementById('ticket-direccion').innerText = datosPedido.direccion;
+                document.getElementById('ticket-metodo').innerText = nombresMetodo[datosPedido.metodo];
+                document.getElementById('ticket-articulos-lista').innerHTML = htmlTicketProductos;
+                document.getElementById('ticket-total-monto').innerText = totalGlobal.toFixed(2);
 
-                document.getElementById(
-                    'ticket-folio'
-                ).innerText = datosPedido.folio;
-
-                document.getElementById(
-                    'ticket-fecha'
-                ).innerText = datosPedido.fecha;
-
-                document.getElementById(
-                    'ticket-cliente'
-                ).innerText = datosPedido.cliente;
-
-                document.getElementById(
-                    'ticket-direccion'
-                ).innerText = datosPedido.direccion;
-
-                document.getElementById(
-                    'ticket-metodo'
-                ).innerText =
-                    nombresMetodo[datosPedido.metodo];
-
-
-                document.getElementById(
-                    'ticket-articulos-lista'
-                ).innerHTML = htmlTicketProductos;
-
-                document.getElementById(
-                    'ticket-total-monto'
-                ).innerText = totalGlobal.toFixed(2);
-
-
-                // Mostrar nota de pago en efectivo
-
-                document.getElementById(
-                    'ticket-nota-efectivo'
-                ).style.display =
+                document.getElementById('ticket-nota-efectivo').style.display =
                     esEfectivo ? 'block' : 'none';
 
-
-                document.getElementById(
-                    'btn-descargar-pdf'
-                ).style.display =
+                document.getElementById('btn-descargar-pdf').style.display =
                     esEfectivo ? 'none' : 'inline-block';
-
-
-                // GUARDAR HISTORIAL DE COMPRAS
 
                 const correo =
                     localStorage.getItem('envStarCorreo') ||
                     'invitado@valfercosmetic.com';
 
-
                 const historial = JSON.parse(
                     localStorage.getItem('historialCompras') || '[]'
                 );
 
-
                 historial.push({
-
                     ...datosPedido,
-
                     correoUsuario: correo
-
                 });
 
-
-                localStorage.setItem(
-                    'historialCompras',
-                    JSON.stringify(historial)
-                );
-
-
-                // VACIAR CARRITO
-
+                localStorage.setItem('historialCompras', JSON.stringify(historial));
                 localStorage.removeItem('carritoEnvStar');
+                localStorage.removeItem('valfer_carrito');
+                localStorage.removeItem('valfer_checkout_resumen');
 
-
-                // MOSTRAR COMPROBANTE
-
-                document.getElementById(
-                    'paso-procesando'
-                ).style.display = 'none';
-
-                document.getElementById(
-                    'paso-ticket'
-                ).style.display = 'block';
-
-
+                document.getElementById('paso-procesando').style.display = 'none';
+                document.getElementById('paso-ticket').style.display = 'block';
             }, 1800);
-
         }
 
     </script>
